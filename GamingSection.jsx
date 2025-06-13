@@ -1,61 +1,48 @@
 import React from "react";
-import ProfileCard from "./ProfileCard";
-import "./ProfileCard.css";
 import "./GamingSection.css";
+
+const games = [
+  {
+    name: "Free Fire",
+    username: "2803397893",
+    icon: "🔥",
+  },
+  {
+    name: "Roblox",
+    username: "v8nanyak",
+    icon: "🧱",
+  },
+  {
+    name: "Minecraft",
+    username: "ramispro89",
+    icon: "⛏️",
+  },
+  {
+    name: "GTA Online",
+    username: "Coming Soon",
+    icon: "🚗",
+  },
+  {
+    name: "War Thunder",
+    username: "Coming Soon",
+    icon: "✈️",
+  },
+];
 
 const GamingSection = () => {
   return (
-    <div className="gaming-section">
-      <h2>🎮 Gaming Profiles</h2>
-
-      <div className="gaming-cards-grid">
-        <ProfileCard
-          avatarUrl="https://mc-heads.net/avatar/ramispro89"
-          miniAvatarUrl="https://mc-heads.net/avatar/ramispro89"
-          name="Minecraft"
-          title="ramispro89 (TLauncher)"
-          handle="ramispro89"
-          status="Online"
-          contactText="Join Server"
-        />
-
-        <ProfileCard
-          avatarUrl="/images/ff-avatar.png"
-          miniAvatarUrl="/images/ff-avatar.png"
-          name="Free Fire"
-          title="ID: 2803397893"
-          handle="Ramrao999"
-          status="Online"
-          contactText="1v1 Challenge"
-        />
-
-        <ProfileCard
-          avatarUrl="/images/roblox-avatar.png"
-          miniAvatarUrl="/images/roblox-avatar.png"
-          name="Roblox"
-          title="v8nanyak"
-          handle="v8nanyak"
-          status="Online"
-          contactText="Play Now"
-        />
-
-        <ProfileCard
-          name="GTA Online"
-          title="Coming Soon"
-          handle="--"
-          status="Offline"
-          contactText="Stay Tuned"
-        />
-
-        <ProfileCard
-          name="War Thunder"
-          title="Coming Soon"
-          handle="--"
-          status="Offline"
-          contactText="Stay Tuned"
-        />
+    <section className="gaming-section">
+      <h2>🎮 My Gaming Profiles</h2>
+      <div className="gaming-cards">
+        {games.map((game, index) => (
+          <div key={index} className="game-card">
+            <span className="icon">{game.icon}</span>
+            <h3>{game.name}</h3>
+            <p>{game.username}</p>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 
