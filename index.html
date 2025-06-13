@@ -159,16 +159,73 @@
       background-color: #f2faff;
     }
 
-    .minecraft-skin {
-      width: 100px;
-      height: auto;
-      margin-top: 10px;
-      border-radius: 10px;
-    }
-
     .coming-soon h3 {
       font-style: italic;
       color: #888;
+    }
+
+    .profile-card {
+      position: relative;
+      background: linear-gradient(145deg, #1f1f2f, #2e2e4d);
+      color: #fff;
+      border-radius: 24px;
+      padding: 30px;
+      width: 280px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      margin-bottom: 50px;
+    }
+
+    .profile-card img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      margin-bottom: 20px;
+    }
+
+    .profile-card h2 {
+      margin-bottom: 4px;
+      font-size: 1.5rem;
+    }
+
+    .profile-card p {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .profile-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px 15px;
+      border-radius: 14px;
+      margin-top: 10px;
+    }
+
+    .profile-footer img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .profile-footer small {
+      font-size: 0.85rem;
+      color: #eee;
+    }
+
+    .profile-footer button {
+      background-color: #0077ff;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     footer {
@@ -194,12 +251,30 @@
       .game-card {
         width: 90%;
       }
+
+      .profile-card {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
 
   <h1>Ramrao Deshmukh</h1>
+
+  <!-- 👤 Profile Card Section -->
+  <div class="profile-card">
+    <img src="ram-profile-pic.jpg" alt="Ram the Teenager">
+    <h2>Ram the Teenager</h2>
+    <p>Software Engineer</p>
+    <div class="profile-footer">
+      <div style="display:flex; align-items:center;">
+        <img src="ram-profile-pic.jpg" alt="Ram Profile">
+        <small>@javicodes<br><span style="color:#0f0">Online</span></small>
+      </div>
+      <button onclick="location.href='mailto:tvdeshmukh.9049388988@gmail.com'">Contact Me</button>
+    </div>
+  </div>
 
   <div class="intro">
     Hey! I'm Ramrao — a creative tech enthusiast who loves building cool digital stuff.  
