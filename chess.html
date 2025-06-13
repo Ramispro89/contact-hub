@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Challenge My Brain - Chess</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stockfish/stockfish.wasm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chessboardjs@1.0.0/dist/chessboard.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chessboardjs@1.0.0/dist/chessboard.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 30px 20px;
+      background: linear-gradient(to right, #c3ecff, #fceabb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .intro {
+      max-width: 700px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    #board {
+      width: 350px;
+      margin: 20px auto;
+    }
+
+    .reactions {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #0077ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005dd1;
+    }
+
+    #comments {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #222;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    a.back {
+      margin-top: 30px;
+      display: inline-block;
+      text-decoration: none;
+      color: #0077ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>♟️ Challenge My Brain</h1>
+  <div class="intro">
+    Play against my AI-powered chess brain (ELO ~1200). Test your strategy, learn, and leave your reaction after the game!
+  </div>
+
+  <div id="board"></div>
+
+  <div class="reactions">
+    <h3>💬 Leave Your Reaction</h3>
+    <textarea id="reactionInput" placeholder="What did you think about the game?"></textarea>
+    <button onclick="addComment()">Post Reaction</button>
+    <div id="comments"></div>
+  </div>
+
+  <a class="back" href="index.html">← Back to Home</a>
+  <footer>© 2025 Ramrao Deshmukh</footer>
+
+  <script>
+    const board = Chessboard('board', {
+      draggable: true,
+      position: 'start',
+      onDrop: onDrop
+    });
+
+    const game = new Chess();
+    const engine = Stockfish();
+
+    engine.postMessage('uci');
+    engine.postMessage('setoption name Skill Level value 2'); // ~1200 ELO
+    engine.postMessage('isready');
+
+    function onDrop(source, target) {
+      const move = game.move({ from: source, to: target, promotion: 'q' });
+      if (!move) return 'snapback';
+
+      window.setTimeout(makeEngineMove, 250);
+    }
+
+    function makeEngineMove() {
+      if (game.game_over()) return;
+
+      engine.postMessage('position fen ' + game.fen());
+      engine.postMessage('go depth 10');
+    }
+
+    engine.onmessage = function(e) {
+      if (typeof e === 'string' && e.startsWith('bestmove')) {
+        const move = e.split(' ')[1];
+        game.move({ from: move.substring(0, 2), to: move.substring(2, 4), promotion: 'q' });
+        board.position(game.fen());
+      }
+    };
+
+    function addComment() {
+      const input = document.getElementById('reactionInput');
+      const comments = document.getElementById('comments');
+      if (input.value.trim()) {
+        const p = document.createElement('p');
+        p.textContent = "🗨️ " + input.value.trim();
+        comments.appendChild(p);
+        input.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
