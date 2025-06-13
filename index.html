@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ramrao Deshmukh - Contact Hub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(270deg, #e0c3fc, #8ec5fc, #c3ecff, #fceabb);
+      background-size: 800% 800%;
+      z-index: -1;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #222;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+      transition: color 0.3s ease-in-out;
+    }
+
+    h1:hover {
+      color: #0057ff;
+    }
+
+    .intro, .skills {
+      max-width: 700px;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .skills-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .skill {
+      background-color: white;
+      border-radius: 12px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+      font-weight: 600;
+      color: #333;
+      transition: transform 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: scale(1.05);
+      background-color: #e0f0ff;
+      color: #0057ff;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      padding: 25px 30px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .card a:hover {
+      color: #0077ff;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .card {
+        width: 90%;
+      }
+
+      .intro, .skills {
+        font-size: 1rem;
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ramrao Deshmukh</h1>
+
+  <div class="intro">
+    Hey! I'm Ramrao — a creative tech enthusiast who loves building cool digital stuff.  
+    Whether it's a bot, a website, or an Insta reel, I bring ideas to life with flair.  
+    Let's connect and create something amazing together!
+  </div>
+
+  <div class="skills">
+    <strong>My Skills:</strong>
+    <div class="skills-list">
+      <div class="skill">💻 Coding</div>
+      <div class="skill">♟️ Chess</div>
+      <div class="skill">🎨 Editing</div>
+      <div class="skill">🤖 AI Bots</div>
+      <div class="skill">📷 Reels</div>
+    </div>
+  </div>
+
+  <div class="card-container">
+    <div class="card">
+      <a href="https://wa.me/919673978223" target="_blank">📱 WhatsApp</a>
+    </div>
+    <div class="card">
+      <a href="https://www.instagram.com/crazyraammm?igsh=MW0zOWg3Z3l3eTZwMQ==" target="_blank">📸 Instagram</a>
+    </div>
+    <div class="card">
+      <a href="https://discord.gg/vHxZxf6y" target="_blank">🎮 Discord</a>
+    </div>
+    <div class="card">
+      <a href="mailto:tvdeshmukh.9049388988@gmail.com">📧 Email Me</a>
+    </div>
+    <div class="card">
+      <a href="https://www.chess.com/member/ramrao999" target="_blank">♟️ 1v1 Chess Challenge</a>
+    </div>
+  </div>
+
+  <footer>© 2025 Ramrao Deshmukh</footer>
+
+  <!-- 👇 FastBots.ai Bot Script -->
+  <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cmbqg8q2n0003oelx9zbrjf3g"></script>
+
+</body>
+</html>
