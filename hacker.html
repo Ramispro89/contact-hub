@@ -3,137 +3,203 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hacker Zone</title>
+  <title>Hacker Zone - Ramrao</title>
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      margin: 0;
       background-color: #000;
-      color: #00ffcc;
       font-family: 'Courier New', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 15px;
+      color: #00ffae;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #globeContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -2;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    #worldMapOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular-projection.jpg/1024px-Equirectangular-projection.jpg');
+      background-size: cover;
+      opacity: 0.05;
+      z-index: -3;
+      filter: contrast(1.5) brightness(0.8);
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
     }
 
     h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px #00ffcc;
-      margin-bottom: 10px;
+      font-size: 3rem;
+      color: #00ffae;
+      text-shadow: 0 0 10px #00ffae, 0 0 20px #00ffae;
     }
 
-    #ip {
-      font-size: 1.4rem;
-      margin: 20px 0;
+    #ipDisplay {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 20px;
     }
 
-    #location {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-
-    #map {
+    #terminal {
+      background: rgba(0, 0, 0, 0.5);
+      margin: 30px auto;
+      padding: 20px;
+      border: 2px solid #00ffae;
       width: 90%;
       max-width: 600px;
-      border: 2px solid #00ffcc;
+      height: 200px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      line-height: 1.5;
       border-radius: 10px;
-      margin-bottom: 30px;
-    }
-
-    .terminal {
-      background-color: #111;
-      padding: 20px;
-      width: 90%;
-      max-width: 700px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #00ffcc;
-      margin-bottom: 40px;
-    }
-
-    .terminal p {
-      margin: 5px 0;
-      color: #0f0;
     }
 
     .challenge {
-      color: #ff0055;
-      font-size: 1.2rem;
-      margin-top: 30px;
       text-align: center;
-      text-shadow: 0 0 6px #ff0055;
+      margin: 30px;
+      font-size: 1.2rem;
+      color: #ff0044;
+      text-shadow: 0 0 5px #ff0044;
     }
 
     .btn-home {
-      margin-top: 40px;
-      background-color: transparent;
-      border: 2px solid #00ffcc;
-      padding: 10px 25px;
-      font-size: 1rem;
-      color: #00ffcc;
-      border-radius: 8px;
-      text-decoration: none;
+      display: block;
+      margin: 30px auto;
+      background: none;
+      border: 2px solid #00ffae;
+      color: #00ffae;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
       transition: 0.3s ease;
     }
 
     .btn-home:hover {
-      background-color: #00ffcc;
+      background: #00ffae;
       color: #000;
+    }
+
+    canvas {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <h1>💻 Hacker Zone</h1>
+  <div id="worldMapOverlay"></div>
+  <div id="globeContainer"></div>
 
-  <div id="ip">IP: 192.168.0.1</div>
-  <div id="location">Location: Tokyo, Japan</div>
-  <img id="map" src="https://www.mapquestapi.com/staticmap/v5/map?locations=35.6895,139.6917&size=600,300@2x&defaultMarker=marker-md-3BFF33-224422" alt="Map location" />
+  <header>
+    <h1>💻 HACKER ZONE 💻</h1>
+    <div id="ipDisplay">Locating IP...</div>
+  </header>
 
-  <div class="terminal" id="terminal">
-    <p>> Initializing trace...</p>
-    <p>> IP acquired: 192.168.0.1</p>
-    <p>> Location found: Tokyo, Japan</p>
-    <p>> Awaiting intrusion detection...</p>
+  <div id="terminal">
+    <p>Initializing traceroute...</p>
+    <p>Accessing DNS servers...</p>
+    <p>Encrypting packets...</p>
+    <p>Injecting proxies...</p>
+    <p>Rotating spoofed IP address...</p>
   </div>
 
   <div class="challenge">
-    🔓 Open Challenge: Try to hack this site or trace its true location.<br>
-    If you succeed, you've earned the title "Shadow Hunter".
+    💀 Open Challenge: Hack this site or find its real location if you dare.
   </div>
 
-  <a class="btn-home" href="index.html">⬅ Back to Home</a>
+  <button class="btn-home" onclick="location.href='index.html'">⬅ Back to Home</button>
+
+  <!-- Three.js and Globe.gl -->
+  <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+  <script src="https://unpkg.com/three-globe@2.27.1/dist/three-globe.min.js"></script>
+  <script src="https://unpkg.com/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
 
   <script>
+    const ipDisplay = document.getElementById('ipDisplay');
+    const terminal = document.getElementById('terminal');
+
     const ips = [
-      { ip: "45.89.121.45", city: "Berlin", country: "Germany", lat: 52.52, lon: 13.405 },
-      { ip: "192.222.33.19", city: "Seoul", country: "South Korea", lat: 37.5665, lon: 126.978 },
-      { ip: "103.95.56.77", city: "Mumbai", country: "India", lat: 19.076, lon: 72.8777 },
-      { ip: "8.8.8.8", city: "Mountain View", country: "USA", lat: 37.386, lon: -122.0838 },
-      { ip: "172.16.254.1", city: "Moscow", country: "Russia", lat: 55.7558, lon: 37.6173 }
+      { ip: '192.168.1.101', location: 'Berlin, Germany' },
+      { ip: '45.33.32.156', location: 'Dallas, USA' },
+      { ip: '138.201.81.199', location: 'Frankfurt, Germany' },
+      { ip: '185.199.110.153', location: 'London, UK' },
+      { ip: '103.21.244.0', location: 'New Delhi, India' },
+      { ip: '82.165.97.169', location: 'Paris, France' },
+      { ip: '144.202.43.22', location: 'Tokyo, Japan' },
+      { ip: '173.212.205.42', location: 'Moscow, Russia' },
+      { ip: '203.0.113.5', location: 'Sydney, Australia' },
+      { ip: '41.74.174.9', location: 'Nairobi, Kenya' },
+      { ip: '190.10.14.20', location: 'Buenos Aires, Argentina' }
     ];
 
-    let current = 0;
+    let ipIndex = 0;
     function updateIP() {
-      const ipBox = document.getElementById('ip');
-      const locBox = document.getElementById('location');
-      const mapImg = document.getElementById('map');
-      const log = document.getElementById('terminal');
-
-      const data = ips[current];
-      ipBox.textContent = `IP: ${data.ip}`;
-      locBox.textContent = `Location: ${data.city}, ${data.country}`;
-      mapImg.src = `https://www.mapquestapi.com/staticmap/v5/map?locations=${data.lat},${data.lon}&size=600,300@2x&defaultMarker=marker-md-3BFF33-224422`;
-
-      const entry = document.createElement('p');
-      entry.textContent = `> Switched to ${data.ip} - ${data.city}, ${data.country}`;
-      log.appendChild(entry);
-      log.scrollTop = log.scrollHeight;
-
-      current = (current + 1) % ips.length;
+      const { ip, location } = ips[ipIndex];
+      ipDisplay.innerHTML = `Current IP: <strong>${ip}</strong> <br>Location: <strong>${location}</strong>`;
+      const log = document.createElement('p');
+      log.textContent = `New spoofed IP detected: ${ip} (${location})`;
+      terminal.appendChild(log);
+      terminal.scrollTop = terminal.scrollHeight;
+      ipIndex = (ipIndex + 1) % ips.length;
     }
 
-    setInterval(updateIP, 4000); // every 4 seconds
-  </script>
+    setInterval(updateIP, 3000);
+    updateIP();
 
+    // 3D Earth
+    const Globe = window.Globe;
+    const container = document.getElementById('globeContainer');
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera();
+    camera.aspect = container.offsetWidth / container.offsetHeight;
+    camera.updateProjectionMatrix();
+    camera.position.z = 250;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    container.appendChild(renderer.domElement);
+
+    const globe = Globe()
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+      .showAtmosphere(true)
+      .atmosphereColor('#00ffae')
+      .atmosphereAltitude(0.25);
+
+    scene.add(globe);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1;
+    controls.enableZoom = false;
+
+    function animate() {
+      controls.update();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = container.offsetWidth / container.offsetHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+    });
+  </script>
 </body>
 </html>
