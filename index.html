@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ramrao Deshmukh - Contact Hub</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,10 +21,8 @@
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
+      top: 0; left: 0;
+      height: 100%; width: 100%;
       background: linear-gradient(270deg, #e0c3fc, #8ec5fc, #c3ecff, #fceabb);
       background-size: 800% 800%;
       z-index: -1;
@@ -49,9 +43,7 @@
       transition: color 0.3s ease-in-out;
     }
 
-    h1:hover {
-      color: #0057ff;
-    }
+    h1:hover { color: #0057ff; }
 
     .intro, .skills {
       max-width: 700px;
@@ -116,9 +108,7 @@
       transition: color 0.2s ease-in-out;
     }
 
-    .card a:hover {
-      color: #0077ff;
-    }
+    .card a:hover { color: #0077ff; }
 
     .gaming-section {
       margin-top: 60px;
@@ -130,6 +120,16 @@
       margin-bottom: 20px;
       color: #222;
       animation: pulse 2s infinite;
+    }
+
+    .gaming-section h2 a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .gaming-section h2 a:hover {
+      text-decoration: underline;
+      color: #0077ff;
     }
 
     @keyframes pulse {
@@ -235,26 +235,9 @@
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .card {
-        width: 90%;
-      }
-
-      .intro, .skills {
-        font-size: 1rem;
-        padding: 0 10px;
-      }
-
-      .game-card {
-        width: 90%;
-      }
-
-      .profile-card {
-        width: 90%;
-      }
+      h1 { font-size: 2rem; }
+      .card, .game-card, .profile-card { width: 90%; }
+      .intro, .skills { font-size: 1rem; padding: 0 10px; }
     }
   </style>
 </head>
@@ -315,7 +298,7 @@
   </div>
 
   <div class="gaming-section">
-    <h2>🎮 Gaming Zone</h2>
+    <h2><a href="gaming.html">🎮 Gaming Zone</a></h2>
     <div class="game-cards">
       <div class="game-card">
         <h3>Free Fire</h3>
@@ -342,6 +325,5 @@
 
   <!-- 👇 FastBots.ai Bot Script -->
   <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cmbqg8q2n0003oelx9zbrjf3g"></script>
-
 </body>
 </html>
