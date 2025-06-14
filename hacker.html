@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hacker Zone</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #00ffcc;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #00ffcc;
+      margin-bottom: 10px;
+    }
+
+    #ip {
+      font-size: 1.4rem;
+      margin: 20px 0;
+    }
+
+    #location {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    #map {
+      width: 90%;
+      max-width: 600px;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .terminal {
+      background-color: #111;
+      padding: 20px;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00ffcc;
+      margin-bottom: 40px;
+    }
+
+    .terminal p {
+      margin: 5px 0;
+      color: #0f0;
+    }
+
+    .challenge {
+      color: #ff0055;
+      font-size: 1.2rem;
+      margin-top: 30px;
+      text-align: center;
+      text-shadow: 0 0 6px #ff0055;
+    }
+
+    .btn-home {
+      margin-top: 40px;
+      background-color: transparent;
+      border: 2px solid #00ffcc;
+      padding: 10px 25px;
+      font-size: 1rem;
+      color: #00ffcc;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .btn-home:hover {
+      background-color: #00ffcc;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💻 Hacker Zone</h1>
+
+  <div id="ip">IP: 192.168.0.1</div>
+  <div id="location">Location: Tokyo, Japan</div>
+  <img id="map" src="https://www.mapquestapi.com/staticmap/v5/map?locations=35.6895,139.6917&size=600,300@2x&defaultMarker=marker-md-3BFF33-224422" alt="Map location" />
+
+  <div class="terminal" id="terminal">
+    <p>> Initializing trace...</p>
+    <p>> IP acquired: 192.168.0.1</p>
+    <p>> Location found: Tokyo, Japan</p>
+    <p>> Awaiting intrusion detection...</p>
+  </div>
+
+  <div class="challenge">
+    🔓 Open Challenge: Try to hack this site or trace its true location.<br>
+    If you succeed, you've earned the title "Shadow Hunter".
+  </div>
+
+  <a class="btn-home" href="index.html">⬅ Back to Home</a>
+
+  <script>
+    const ips = [
+      { ip: "45.89.121.45", city: "Berlin", country: "Germany", lat: 52.52, lon: 13.405 },
+      { ip: "192.222.33.19", city: "Seoul", country: "South Korea", lat: 37.5665, lon: 126.978 },
+      { ip: "103.95.56.77", city: "Mumbai", country: "India", lat: 19.076, lon: 72.8777 },
+      { ip: "8.8.8.8", city: "Mountain View", country: "USA", lat: 37.386, lon: -122.0838 },
+      { ip: "172.16.254.1", city: "Moscow", country: "Russia", lat: 55.7558, lon: 37.6173 }
+    ];
+
+    let current = 0;
+    function updateIP() {
+      const ipBox = document.getElementById('ip');
+      const locBox = document.getElementById('location');
+      const mapImg = document.getElementById('map');
+      const log = document.getElementById('terminal');
+
+      const data = ips[current];
+      ipBox.textContent = `IP: ${data.ip}`;
+      locBox.textContent = `Location: ${data.city}, ${data.country}`;
+      mapImg.src = `https://www.mapquestapi.com/staticmap/v5/map?locations=${data.lat},${data.lon}&size=600,300@2x&defaultMarker=marker-md-3BFF33-224422`;
+
+      const entry = document.createElement('p');
+      entry.textContent = `> Switched to ${data.ip} - ${data.city}, ${data.country}`;
+      log.appendChild(entry);
+      log.scrollTop = log.scrollHeight;
+
+      current = (current + 1) % ips.length;
+    }
+
+    setInterval(updateIP, 4000); // every 4 seconds
+  </script>
+
+</body>
+</html>
