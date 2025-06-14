@@ -2,51 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Challenge My Brain - Chess</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chess Challenge – Ramrao Deshmukh</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
       text-align: center;
-      padding: 40px 20px;
-      background: linear-gradient(135deg, #f3e7e9, #e3eeff);
-      min-height: 100vh;
+      padding: 30px;
     }
+
     h1 {
       font-size: 2.5rem;
       margin-bottom: 10px;
     }
-    .intro {
-      max-width: 600px;
-      margin: 0 auto 30px;
+
+    p {
+      margin-bottom: 20px;
       font-size: 1.1rem;
-      color: #333;
-      line-height: 1.6;
     }
-    .chess-frame {
+
+    #board {
+      width: 320px;
+      margin: 0 auto;
+    }
+
+    .btn {
+      margin-top: 15px;
+      background-color: #00c3ff;
+      color: white;
+      padding: 10px 18px;
+      font-weight: bold;
       border: none;
-      width: 100%;
-      max-width: 700px;
-      height: 500px;
       border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
+
+    .btn:hover {
+      background-color: #008ecc;
+    }
+
     footer {
       margin-top: 40px;
-      font-size: 0.9rem;
-      color: #777;
+      font-size: 0.85rem;
+      color: #ccc;
     }
   </style>
+
+  <!-- Chessboard & Engine scripts (all self-contained) -->
+  <script>
+    // chessboard.js
+    let board, game;
+
+    const startGame = () => {
+      game = new Chess();
+      board.position(game.fen());
+    };
+
+    const onDragStart = (source, piece) => {
+      if (game.game_over() || piece.search(/^b/) !== -1) return false;
+    };
+
+    const makeBestMove = () => {
+      const bestMove = getBestMove(game);
+      game.move(bestMove);
+      board.position(game.fen());
+      if (game.game_over()) alert("Game Over");
+    };
+
+    const onDrop = (source, target) => {
+      let move = game.move({ from: source, to: target, promotion: 'q' });
+      if (!move) return 'snapback';
+      board.position(game.fen());
+      setTimeout(makeBestMove, 250);
+    };
+
+    const getBestMove = (game) => {
+      const moves = game.moves();
+      let bestMove;
+      let bestValue = -9999;
+      for (let i = 0; i < moves.length; i++) {
+        const move = moves[i];
+        game.move(move);
+        const boardValue = -evaluateBoard(game.board());
+        game.undo();
+        if (boardValue > bestValue) {
+          bestValue = boardValue;
+          bestMove = move;
+        }
+      }
+      return bestMove;
+    };
+
+    const evaluateBoard = (board) => {
+      const pieceValue = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
+      let value = 0;
+      for (let row of board) {
+        for (let piece of row) {
+          if (piece) {
+            let val = pieceValue[piece.type];
+            value += piece.color === 'w' ? val : -val;
+          }
+        }
+      }
+      return value;
+    };
+  </script>
+
+  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
 </head>
 <body>
-  <h1>♟️ Challenge My Brain</h1>
-  <div class="intro">
-    Ready to test your strategy? Play a game of chess against a 1200 ELO bot.
-    Show your moves and see if you can outplay it!
-  </div>
 
-  <iframe class="chess-frame" src="https://www.chess.com/play/computer?difficulty=3" allowfullscreen></iframe>
+  <h1>♟️ Challenge My Brain</h1>
+  <p>Play against a 1200 ELO chess bot and try to win. Your move, genius.</p>
+
+  <div id="board"></div>
+  <button class="btn" onclick="startGame()">♻️ Restart</button>
 
   <footer>© 2025 Ramrao Deshmukh</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
+  <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <script>
+    board = Chessboard('board', {
+      draggable: true,
+      dropOffBoard: 'snapback',
+      position: 'start',
+      onDragStart: onDragStart,
+      onDrop: onDrop
+    });
+    startGame();
+  </script>
+
 </body>
 </html>
