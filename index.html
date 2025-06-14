@@ -110,122 +110,21 @@
 
     .card a:hover { color: #0077ff; }
 
-    .gaming-section {
-      margin-top: 60px;
-      text-align: center;
-    }
-
-    .gaming-section h2 {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      color: #222;
-      animation: pulse 2s infinite;
-    }
-
-    .gaming-section h2 a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .gaming-section h2 a:hover {
-      text-decoration: underline;
-      color: #0077ff;
-    }
-
-    @keyframes pulse {
-      0%, 100% { color: #222; }
-      50% { color: #0077ff; }
-    }
-
-    .game-cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 10px;
-    }
-
-    .game-card {
-      background-color: white;
-      border-radius: 16px;
-      padding: 20px;
-      width: 220px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .game-card:hover {
-      transform: translateY(-8px);
-      background-color: #f2faff;
-    }
-
-    .coming-soon h3 {
-      font-style: italic;
-      color: #888;
-    }
-
-    .profile-card {
-      position: relative;
-      background: linear-gradient(145deg, #1f1f2f, #2e2e4d);
-      color: #fff;
-      border-radius: 24px;
-      padding: 30px;
-      width: 280px;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-      margin-bottom: 50px;
-    }
-
-    .profile-card img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #fff;
-      margin-bottom: 20px;
-    }
-
-    .profile-card h2 {
-      margin-bottom: 4px;
-      font-size: 1.5rem;
-    }
-
-    .profile-card p {
-      font-size: 0.95rem;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .profile-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 10px 15px;
-      border-radius: 14px;
-      margin-top: 10px;
-    }
-
-    .profile-footer img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-
-    .profile-footer small {
-      font-size: 0.85rem;
-      color: #eee;
-    }
-
-    .profile-footer button {
-      background-color: #0077ff;
-      color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
+    .gaming-link {
+      margin-top: 50px;
+      font-size: 1.8rem;
       font-weight: bold;
+    }
+
+    .gaming-link a {
+      color: #0057ff;
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .gaming-link a:hover {
+      text-decoration: underline;
+      color: #222;
     }
 
     footer {
@@ -236,7 +135,7 @@
 
     @media (max-width: 600px) {
       h1 { font-size: 2rem; }
-      .card, .game-card, .profile-card { width: 90%; }
+      .card { width: 90%; }
       .intro, .skills { font-size: 1rem; padding: 0 10px; }
     }
   </style>
@@ -244,20 +143,6 @@
 <body>
 
   <h1>Ramrao Deshmukh</h1>
-
-  <!-- 👤 Profile Card Section -->
-  <div class="profile-card">
-    <img src="ram-profile-pic.jpg" alt="Ram the Teenager">
-    <h2>Ram the Teenager</h2>
-    <p>Software Engineer</p>
-    <div class="profile-footer">
-      <div style="display:flex; align-items:center;">
-        <img src="ram-profile-pic.jpg" alt="Ram Profile">
-        <small>@javicodes<br><span style="color:#0f0">Online</span></small>
-      </div>
-      <button onclick="location.href='mailto:tvdeshmukh.9049388988@gmail.com'">Contact Me</button>
-    </div>
-  </div>
 
   <div class="intro">
     Hey! I'm Ramrao — a creative tech enthusiast who loves building cool digital stuff.  
@@ -297,28 +182,8 @@
     </div>
   </div>
 
-  <div class="gaming-section">
-    <h2><a href="gaming.html">🎮 Gaming Zone</a></h2>
-    <div class="game-cards">
-      <div class="game-card">
-        <h3>Free Fire</h3>
-        <p>ID: <strong>2803397893</strong></p>
-      </div>
-      <div class="game-card">
-        <h3>Roblox</h3>
-        <p>Username: <strong>v8nanyak</strong></p>
-      </div>
-      <div class="game-card">
-        <h3>Minecraft</h3>
-        <p>ID: <strong>ramispro89 (TLauncher)</strong></p>
-      </div>
-      <div class="game-card coming-soon">
-        <h3>GTA Online – Coming Soon</h3>
-      </div>
-      <div class="game-card coming-soon">
-        <h3>War Thunder – Coming Soon</h3>
-      </div>
-    </div>
+  <div class="gaming-link">
+    <a href="gaming.html">🎮 Visit My Gaming Zone</a>
   </div>
 
   <footer>© 2025 Ramrao Deshmukh</footer>
