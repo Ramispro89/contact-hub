@@ -3,100 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ramrao's Skills</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <title>Skills - Ramrao Deshmukh</title>
   <style>
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      background: linear-gradient(135deg, #000000, #0f0f0f);
-      font-family: 'Orbitron', sans-serif;
-      color: #00ffee;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background: black;
       overflow: hidden;
-      position: relative;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .background-video {
-      position: fixed;
+    .video-background {
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
+      width: 100%;
+      height: 100%;
       z-index: -1;
-      filter: brightness(0.15) contrast(1.2);
+      overflow: hidden;
     }
 
-    .skills-container {
-      text-align: center;
-      z-index: 1;
-      animation: fadeIn 1.5s ease forwards;
+    .video-background video {
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
     }
 
-    .skills-container h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      letter-spacing: 3px;
-      text-shadow: 0 0 10px #00ffee;
-    }
-
-    .skill {
-      font-size: 1.8rem;
-      margin: 15px 0;
-      text-shadow: 0 0 8px #00ffee;
-      animation: floatText 2s ease-in-out infinite;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes floatText {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .btn-home {
-      margin-top: 40px;
-      padding: 10px 20px;
-      background: #00ffee;
-      color: #000;
+    .skill-text {
+      font-size: 3rem;
+      color: #00fff2;
       font-weight: bold;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      text-shadow: none;
-      box-shadow: 0 0 10px #00ffee;
-      transition: transform 0.3s ease;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2, 0 0 30px #00fff2;
+      animation: flicker 1.5s infinite alternate, pop 8s infinite;
+      position: absolute;
+      white-space: nowrap;
     }
 
-    .btn-home:hover {
-      transform: scale(1.1);
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes pop {
+      0% {
+        content: "AI BOTS";
+        transform: scale(1);
+        top: 40%;
+      }
+      20% {
+        content: "CODING";
+        transform: scale(1.1);
+      }
+      40% {
+        content: "CREATIVE IMAGING";
+        transform: scale(1.2);
+      }
+      60% {
+        content: "CHESS";
+        transform: scale(1.1);
+      }
+      80% {
+        content: "INNOVATION";
+        transform: scale(1.3);
+      }
+      100% {
+        content: "AI BOTS";
+        transform: scale(1);
+      }
+    }
+
+    .music {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 10;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: #00fff2;
+      font-weight: bold;
+      text-decoration: none;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #00fff2;
+    }
+
+    .back-button:hover {
+      background: rgba(0, 255, 242, 0.2);
     }
   </style>
 </head>
 <body>
-
-  <video class="background-video" autoplay muted loop>
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-hologram-animation-of-a-human-head-1162-large.mp4" type="video/mp4">
-  </video>
-
-  <div class="skills-container">
-    <h1>My Skills</h1>
-    <div class="skill">🤖 Making AI Bots</div>
-    <div class="skill">💻 Coding</div>
-    <div class="skill">🎨 Creative Imaging</div>
-    <div class="skill">♟️ Chess</div>
-    <button class="btn-home" onclick="location.href='index.html'">⬅ Back to Home</button>
+  <div class="video-background">
+    <video autoplay muted loop>
+      <source src="https://cdn.pixabay.com/video/2023/05/26/167570-829780175_large.mp4" type="video/mp4">
+    </video>
   </div>
 
+  <div class="skill-text" id="skillText">AI BOTS</div>
+
+  <a href="index.html" class="back-button">⬅ Back to Home</a>
+
+  <div class="music">
+    <audio autoplay loop>
+      <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const skills = ["AI BOTS", "CODING", "CREATIVE IMAGING", "CHESS", "INNOVATION"];
+    let index = 0;
+    const skillText = document.getElementById("skillText");
+
+    setInterval(() => {
+      index = (index + 1) % skills.length;
+      skillText.textContent = skills[index];
+    }, 2000);
+  </script>
 </body>
 </html>
