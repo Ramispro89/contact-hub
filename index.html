@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ram Deshmukh - Contact Hub</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,75 +20,31 @@
       padding: 40px 20px;
       position: relative;
       overflow-x: hidden;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      height: 100%; width: 100%;
-      background: linear-gradient(270deg, #e0c3fc, #8ec5fc, #c3ecff, #fceabb);
-      background-size: 800% 800%;
-      z-index: -1;
-      animation: gradientBG 15s ease infinite;
-    }
-
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     h1 {
       font-size: 3rem;
       margin-bottom: 10px;
-      color: #222;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
-      transition: color 0.3s ease-in-out;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
     }
-
-    h1:hover { color: #0057ff; }
 
     .intro {
       max-width: 700px;
       text-align: center;
       margin-bottom: 30px;
       font-size: 1.1rem;
-      color: #555;
+      color: #fff;
       line-height: 1.6;
-    }
-
-    .skills {
-      background-color: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      margin: 30px 0;
-      text-align: center;
-      max-width: 600px;
-      animation: fadeIn 1s ease;
-    }
-
-    .skills h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    .skills ul {
-      list-style: none;
-      padding: 0;
-      font-size: 1.1rem;
-      color: #444;
-    }
-
-    .skills ul li {
-      margin: 8px 0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .card-container {
@@ -95,29 +55,72 @@
     }
 
     .card {
-      background-color: white;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid #00ffff44;
       border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
       padding: 25px 30px;
-      width: 250px;
+      width: 240px;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+      border-color: #00ffff;
+      box-shadow: 0 0 25px #00ffff99;
     }
 
     .card a {
       text-decoration: none;
-      color: #333;
-      font-weight: 600;
+      color: #00ffff;
+      font-weight: bold;
       font-size: 1.2rem;
-      transition: color 0.2s ease-in-out;
+      text-shadow: 0 0 5px #00ffffaa;
     }
 
-    .card a:hover { color: #0077ff; }
+    .skills {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 2px solid #00ffcc55;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+      padding: 20px 30px;
+      margin: 40px 0;
+      color: #fff;
+      max-width: 750px;
+      text-align: center;
+    }
+
+    .skills h2 {
+      font-size: 1.8rem;
+      color: #00ffee;
+      text-shadow: 0 0 5px #00ffee88;
+      margin-bottom: 10px;
+    }
+
+    .skills-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      font-size: 1.1rem;
+    }
+
+    .skills-list span {
+      background: rgba(0, 255, 204, 0.1);
+      padding: 10px 20px;
+      border-radius: 15px;
+      border: 1px solid #00ffee66;
+      text-shadow: 0 0 5px #00ffee88;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skills-list span:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 12px #00ffee;
+    }
 
     .gaming-link, .hacker-link {
       margin-top: 40px;
@@ -126,32 +129,29 @@
     }
 
     .gaming-link a {
-      color: #0057ff;
+      color: #00ffea;
+      text-shadow: 0 0 6px #00ffea;
       text-decoration: none;
-      transition: color 0.2s ease-in-out;
     }
 
     .gaming-link a:hover {
-      text-decoration: underline;
-      color: #222;
+      text-shadow: 0 0 12px #00ffee;
     }
 
     .hacker-link a {
-      color: #00ffea;
+      color: #ff00d4;
+      text-shadow: 0 0 8px #ff00d4;
       text-decoration: none;
-      transition: all 0.3s ease-in-out;
-      text-shadow: 0 0 5px #00ffee, 0 0 10px #00ffee, 0 0 20px #00ffee;
     }
 
     .hacker-link a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #00ffee, 0 0 16px #00ffee, 0 0 30px #00ffee;
+      text-shadow: 0 0 16px #ff00ff;
     }
 
     footer {
       margin-top: 40px;
       font-size: 0.9rem;
-      color: #888;
+      color: #bbb;
     }
 
     .review-button {
@@ -164,7 +164,7 @@
       font-weight: bold;
       font-size: 1rem;
       border-radius: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       z-index: 999;
       text-decoration: none;
       transition: background-color 0.3s ease;
@@ -178,6 +178,7 @@
       h1 { font-size: 2rem; }
       .card { width: 90%; }
       .intro { font-size: 1rem; padding: 0 10px; }
+      .skills-list { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
@@ -193,12 +194,12 @@
 
   <div class="skills">
     <h2>💡 My Skills</h2>
-    <ul>
-      <li>🤖 Making AI Bots</li>
-      <li>💻 Coding</li>
-      <li>🎨 Creative Imaging</li>
-      <li>♟️ Chess</li>
-    </ul>
+    <div class="skills-list">
+      <span>🤖 Making AI Bots</span>
+      <span>💻 Coding</span>
+      <span>🎨 Creative Imaging</span>
+      <span>♟️ Chess</span>
+    </div>
   </div>
 
   <div class="card-container">
@@ -206,7 +207,7 @@
       <a href="https://wa.me/919673978223" target="_blank">📱 WhatsApp</a>
     </div>
     <div class="card">
-      <a href="https://www.instagram.com/crazyraammm?igsh=MW0zOWg3Z3l3eTZwMQ==" target="_blank">📸 Instagram</a>
+      <a href="https://www.instagram.com/crazyraammm" target="_blank">📸 Instagram</a>
     </div>
     <div class="card">
       <a href="https://discord.gg/vHxZxf6y" target="_blank">🎮 Discord</a>
