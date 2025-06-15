@@ -61,7 +61,7 @@
       border: 2px solid #00ffae;
       width: 90%;
       max-width: 600px;
-      height: 200px;
+      height: 220px;
       overflow-y: auto;
       font-size: 0.95rem;
       line-height: 1.5;
@@ -71,9 +71,13 @@
     .challenge {
       text-align: center;
       margin: 30px;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: #ff0044;
-      text-shadow: 0 0 5px #ff0044;
+      text-shadow: 0 0 8px #ff0044, 0 0 15px #ff0044;
+      padding: 10px;
+      background: rgba(255, 0, 0, 0.05);
+      border: 1px solid #ff0044;
+      border-radius: 12px;
     }
 
     .btn-home {
@@ -94,8 +98,26 @@
       color: #000;
     }
 
-    canvas {
-      display: block;
+    .breach-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 0, 0, 0.1);
+      border: 2px solid #ff0044;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      color: #ff0044;
+      font-weight: bold;
+      text-shadow: 0 0 5px #ff0044;
+      box-shadow: 0 0 10px #ff0044;
+      border-radius: 10px;
+      animation: flashBreach 1s infinite alternate;
+      z-index: 999;
+    }
+
+    @keyframes flashBreach {
+      from { box-shadow: 0 0 10px #ff0044; }
+      to { box-shadow: 0 0 30px #ff0044; background-color: rgba(255, 0, 0, 0.2); }
     }
   </style>
 </head>
@@ -103,6 +125,7 @@
 
   <div id="worldMapOverlay"></div>
   <div id="globeContainer"></div>
+  <div class="breach-popup">⚠ SYSTEM BREACH DETECTED</div>
 
   <header>
     <h1>💻 HACKER ZONE 💻</h1>
@@ -115,15 +138,19 @@
     <p>Encrypting packets...</p>
     <p>Injecting proxies...</p>
     <p>Rotating spoofed IP address...</p>
+    <p>Open Ports: 22 (SSH), 443 (HTTPS), 8080 (Proxy), 3306 (MySQL), 27017 (MongoDB)</p>
+    <p>Firewall: WallaSec v7.8 [Active] | AI-Powered Intrusion Detection</p>
   </div>
 
   <div class="challenge">
-    💀 Open Challenge: Hack this site or find its real location if you dare.
+    ☠ OPEN CHALLENGE: Try to hack this server or trace its hidden location.<br>
+    If you succeed, you earn the title: <strong style="color:lime">"SHADOW HUNTER"</strong>.<br>
+    This server is shielded by WallaFire encrypted firewalls operated by GhostNet Security — a secret branch of cyber defense.<br>
+    <em>This webpage is considered <u>unbreakable</u> in all dark web tests.</em>
   </div>
 
   <button class="btn-home" onclick="location.href='index.html'">⬅ Back to Home</button>
 
-  <!-- Three.js and Globe.gl -->
   <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
   <script src="https://unpkg.com/three-globe@2.27.1/dist/three-globe.min.js"></script>
   <script src="https://unpkg.com/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
@@ -160,7 +187,6 @@
     setInterval(updateIP, 3000);
     updateIP();
 
-    // 3D Earth
     const Globe = window.Globe;
     const container = document.getElementById('globeContainer');
 
