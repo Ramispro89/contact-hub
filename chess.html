@@ -3,137 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chess Challenge – Ramrao Deshmukh</title>
+  <title>Shadow Chess – Ramrao Deshmukh</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      text-align: center;
+      background: black;
+      color: #0f0;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       padding: 30px;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 2rem;
+      text-shadow: 0 0 10px #0f0;
     }
 
-    p {
-      margin-bottom: 20px;
-      font-size: 1.1rem;
+    #chessboard {
+      display: grid;
+      grid-template-columns: repeat(8, 60px);
+      grid-template-rows: repeat(8, 60px);
+      border: 2px solid #0f0;
+      box-shadow: 0 0 10px #0f0;
+      margin-top: 20px;
     }
 
-    #board {
-      width: 320px;
-      margin: 0 auto;
-    }
-
-    .btn {
-      margin-top: 15px;
-      background-color: #00c3ff;
-      color: white;
-      padding: 10px 18px;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
+    .cell {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
       cursor: pointer;
     }
 
-    .btn:hover {
-      background-color: #008ecc;
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 0.85rem;
-      color: #ccc;
-    }
+    .white { background: #111; }
+    .black { background: #222; }
+    .selected { background: #333 !important; }
+    footer { margin-top: 30px; color: #444; font-size: 0.8rem; }
   </style>
+</head>
+<body>
+  <h1>♟️ Shadow Chess Bot</h1>
+  <div id="chessboard"></div>
+  <footer>© 2025 Ramrao Deshmukh — AI Bot Mode: Shadow</footer>
 
-  <!-- Chessboard & Engine scripts (all self-contained) -->
   <script>
-    // chessboard.js
-    let board, game;
-
-    const startGame = () => {
-      game = new Chess();
-      board.position(game.fen());
+    const boardEl = document.getElementById("chessboard");
+    let board = [];
+    let selected = null;
+    const pieces = {
+      r: "♜", n: "♞", b: "♝", q: "♛", k: "♚", p: "♟",
+      R: "♖", N: "♘", B: "♗", Q: "♕", K: "♔", P: "♙"
     };
 
-    const onDragStart = (source, piece) => {
-      if (game.game_over() || piece.search(/^b/) !== -1) return false;
-    };
+    function createBoard() {
+      const start = [
+        "rnbqkbnr",
+        "pppppppp",
+        "........",
+        "........",
+        "........",
+        "........",
+        "PPPPPPPP",
+        "RNBQKBNR"
+      ];
+      board = start.map(row => row.split(""));
+      render();
+    }
 
-    const makeBestMove = () => {
-      const bestMove = getBestMove(game);
-      game.move(bestMove);
-      board.position(game.fen());
-      if (game.game_over()) alert("Game Over");
-    };
-
-    const onDrop = (source, target) => {
-      let move = game.move({ from: source, to: target, promotion: 'q' });
-      if (!move) return 'snapback';
-      board.position(game.fen());
-      setTimeout(makeBestMove, 250);
-    };
-
-    const getBestMove = (game) => {
-      const moves = game.moves();
-      let bestMove;
-      let bestValue = -9999;
-      for (let i = 0; i < moves.length; i++) {
-        const move = moves[i];
-        game.move(move);
-        const boardValue = -evaluateBoard(game.board());
-        game.undo();
-        if (boardValue > bestValue) {
-          bestValue = boardValue;
-          bestMove = move;
+    function render() {
+      boardEl.innerHTML = "";
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          const cell = document.createElement("div");
+          cell.className = "cell " + ((i + j) % 2 === 0 ? "white" : "black");
+          cell.dataset.row = i;
+          cell.dataset.col = j;
+          const piece = board[i][j];
+          if (piece !== ".") cell.textContent = pieces[piece];
+          if (selected && selected.row == i && selected.col == j) {
+            cell.classList.add("selected");
+          }
+          cell.onclick = () => cellClick(i, j);
+          boardEl.appendChild(cell);
         }
       }
-      return bestMove;
-    };
+    }
 
-    const evaluateBoard = (board) => {
-      const pieceValue = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
-      let value = 0;
-      for (let row of board) {
-        for (let piece of row) {
-          if (piece) {
-            let val = pieceValue[piece.type];
-            value += piece.color === 'w' ? val : -val;
+    function cellClick(i, j) {
+      const clickedPiece = board[i][j];
+      if (selected) {
+        if (isValidMove(selected.row, selected.col, i, j)) {
+          move(selected.row, selected.col, i, j);
+          selected = null;
+          render();
+          setTimeout(botMove, 500);
+        } else {
+          selected = null;
+          render();
+        }
+      } else if (clickedPiece !== "." && clickedPiece === clickedPiece.toUpperCase()) {
+        selected = { row: i, col: j };
+        render();
+      }
+    }
+
+    function move(fromRow, fromCol, toRow, toCol) {
+      board[toRow][toCol] = board[fromRow][fromCol];
+      board[fromRow][fromCol] = ".";
+    }
+
+    function isValidMove(fromRow, fromCol, toRow, toCol) {
+      const piece = board[fromRow][fromCol];
+      const target = board[toRow][toCol];
+      if (target !== "." && target === target.toUpperCase()) return false;
+      if (fromRow === toRow && fromCol === toCol) return false;
+      return true;
+    }
+
+    function botMove() {
+      const moves = [];
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          const piece = board[i][j];
+          if (piece !== "." && piece === piece.toLowerCase()) {
+            for (let x = 0; x < 8; x++) {
+              for (let y = 0; y < 8; y++) {
+                if (isValidBotMove(i, j, x, y)) {
+                  moves.push({ from: [i, j], to: [x, y] });
+                }
+              }
+            }
           }
         }
       }
-      return value;
-    };
+      if (moves.length > 0) {
+        const m = moves[Math.floor(Math.random() * moves.length)];
+        move(m.from[0], m.from[1], m.to[0], m.to[1]);
+        render();
+      }
+    }
+
+    function isValidBotMove(fromRow, fromCol, toRow, toCol) {
+      const piece = board[fromRow][fromCol];
+      const target = board[toRow][toCol];
+      if (target !== "." && target === target.toLowerCase()) return false;
+      if (fromRow === toRow && fromCol === toCol) return false;
+      return true;
+    }
+
+    createBoard();
   </script>
-
-  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
-</head>
-<body>
-
-  <h1>♟️ Challenge My Brain</h1>
-  <p>Play against a 1200 ELO chess bot and try to win. Your move, genius.</p>
-
-  <div id="board"></div>
-  <button class="btn" onclick="startGame()">♻️ Restart</button>
-
-  <footer>© 2025 Ramrao Deshmukh</footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
-  <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
-  <script>
-    board = Chessboard('board', {
-      draggable: true,
-      dropOffBoard: 'snapback',
-      position: 'start',
-      onDragStart: onDragStart,
-      onDrop: onDrop
-    });
-    startGame();
-  </script>
-
 </body>
 </html>
