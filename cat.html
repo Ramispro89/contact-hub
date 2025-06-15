@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Cats Grid</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #000;
+      font-family: sans-serif;
+      color: white;
+      overflow-x: hidden;
+    }
+    .chroma-grid {
+      --r: 300px;
+      --cols: 2;
+      --rows: 2;
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(var(--cols), 1fr);
+      grid-template-rows: repeat(var(--rows), 1fr);
+      gap: 1rem;
+      padding: 2rem;
+      --x: 50%;
+      --y: 50%;
+    }
+    .chroma-card {
+      background: var(--card-gradient);
+      border: 2px solid var(--card-border);
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .chroma-card:hover {
+      transform: scale(1.03);
+    }
+    .chroma-img-wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      max-height: 200px;
+      object-fit: cover;
+    }
+    .chroma-info {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .handle {
+      display: block;
+      color: #aaa;
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+    }
+    .role {
+      font-size: 1rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chroma-grid">
+  <div class="chroma-card" style="--card-border: #FFD700; --card-gradient: linear-gradient(145deg, #FFD700, #000)">
+    <div class="chroma-img-wrapper">
+      <img src="cat1.jpg" alt="Rich" loading="lazy" />
+    </div>
+    <footer class="chroma-info">
+      <h3 class="name">Rich</h3>
+      <span class="handle">@moneyking</span>
+      <p class="role">Money King</p>
+    </footer>
+  </div>
+
+  <div class="chroma-card" style="--card-border: #4B5563; --card-gradient: linear-gradient(180deg, #4B5563, #000)">
+    <div class="chroma-img-wrapper">
+      <img src="cat2.jpg" alt="Serious" loading="lazy" />
+    </div>
+    <footer class="chroma-info">
+      <h3 class="name">Serious</h3>
+      <span class="handle">@jawlinepro</span>
+      <p class="role">Sharp Jawline</p>
+    </footer>
+  </div>
+
+  <div class="chroma-card" style="--card-border: #EC4899; --card-gradient: linear-gradient(145deg, #EC4899, #000)">
+    <div class="chroma-img-wrapper">
+      <img src="cat3.jpg" alt="Pookie" loading="lazy" />
+    </div>
+    <footer class="chroma-info">
+      <h3 class="name">Pookie</h3>
+      <span class="handle">@hammockking</span>
+      <p class="role">Hammock King</p>
+    </footer>
+  </div>
+
+  <div class="chroma-card" style="--card-border: #3B82F6; --card-gradient: linear-gradient(145deg, #3B82F6, #000)">
+    <div class="chroma-img-wrapper">
+      <img src="cat4.jpg" alt="Mewing" loading="lazy" />
+    </div>
+    <footer class="chroma-info">
+      <h3 class="name">Mewing</h3>
+      <span class="handle">@closecutelook</span>
+      <p class="role">Close Cute Look</p>
+    </footer>
+  </div>
+</div>
+
+</body>
+</html>
