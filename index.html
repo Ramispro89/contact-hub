@@ -121,6 +121,26 @@
       color: #888;
     }
 
+    .review-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff0077;
+      color: white;
+      padding: 12px 18px;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .review-button:hover {
+      background-color: #cc005f;
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2rem; }
       .card { width: 90%; }
@@ -171,6 +191,8 @@
   </div>
 
   <footer>© 2025 Ramrao Deshmukh</footer>
+
+  <a href="reviews.html" class="review-button">📣 Drop Review</a>
 
   <!-- 👇 FastBots.ai Bot Script -->
   <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cmbqg8q2n0003oelx9zbrjf3g"></script>
