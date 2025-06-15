@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ramrao's Skills</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #000000, #0f0f0f);
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.15) contrast(1.2);
+    }
+
+    .skills-container {
+      text-align: center;
+      z-index: 1;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .skills-container h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px #00ffee;
+    }
+
+    .skill {
+      font-size: 1.8rem;
+      margin: 15px 0;
+      text-shadow: 0 0 8px #00ffee;
+      animation: floatText 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .btn-home {
+      margin-top: 40px;
+      padding: 10px 20px;
+      background: #00ffee;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-shadow: none;
+      box-shadow: 0 0 10px #00ffee;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-home:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <video class="background-video" autoplay muted loop>
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-hologram-animation-of-a-human-head-1162-large.mp4" type="video/mp4">
+  </video>
+
+  <div class="skills-container">
+    <h1>My Skills</h1>
+    <div class="skill">🤖 Making AI Bots</div>
+    <div class="skill">💻 Coding</div>
+    <div class="skill">🎨 Creative Imaging</div>
+    <div class="skill">♟️ Chess</div>
+    <button class="btn-home" onclick="location.href='index.html'">⬅ Back to Home</button>
+  </div>
+
+</body>
+</html>
