@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shadow Chess – Ramrao Deshmukh</title>
+  <title>Shadow Chess – Ram</title>
   <style>
     body {
       background: black;
@@ -18,6 +18,28 @@
     h1 {
       font-size: 2rem;
       text-shadow: 0 0 10px #0f0;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #0f0;
+    }
+
+    .online-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #0f0;
+      border-radius: 50%;
+      margin-right: 5px;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
     }
 
     #chessboard {
@@ -42,13 +64,21 @@
     .white { background: #111; }
     .black { background: #222; }
     .selected { background: #333 !important; }
-    footer { margin-top: 30px; color: #444; font-size: 0.8rem; }
+
+    footer {
+      margin-top: 30px;
+      color: #444;
+      font-size: 0.8rem;
+    }
   </style>
 </head>
 <body>
   <h1>♟️ Shadow Chess Bot</h1>
+  <div class="status">
+    <span class="online-dot"></span>Ram | Bot ELO: 1200 | Status: Online
+  </div>
   <div id="chessboard"></div>
-  <footer>© 2025 Ramrao Deshmukh — AI Bot Mode: Shadow</footer>
+  <footer>© 2025 Ram — AI Bot Mode: Shadow</footer>
 
   <script>
     const boardEl = document.getElementById("chessboard");
@@ -124,8 +154,18 @@
       return true;
     }
 
+    function isValidBotMove(fromRow, fromCol, toRow, toCol) {
+      const piece = board[fromRow][fromCol];
+      const target = board[toRow][toCol];
+      if (target !== "." && target === target.toLowerCase()) return false;
+      if (fromRow === toRow && fromCol === toCol) return false;
+      return true;
+    }
+
     function botMove() {
-      const moves = [];
+      const captureMoves = [];
+      const normalMoves = [];
+
       for (let i = 0; i < 8; i++) {
         for (let j = 0; j < 8; j++) {
           const piece = board[i][j];
@@ -133,26 +173,26 @@
             for (let x = 0; x < 8; x++) {
               for (let y = 0; y < 8; y++) {
                 if (isValidBotMove(i, j, x, y)) {
-                  moves.push({ from: [i, j], to: [x, y] });
+                  const target = board[x][y];
+                  const move = { from: [i, j], to: [x, y] };
+                  if (target !== "." && target === target.toUpperCase()) {
+                    captureMoves.push(move);
+                  } else {
+                    normalMoves.push(move);
+                  }
                 }
               }
             }
           }
         }
       }
-      if (moves.length > 0) {
-        const m = moves[Math.floor(Math.random() * moves.length)];
+
+      const possible = captureMoves.length > 0 ? captureMoves : normalMoves;
+      if (possible.length > 0) {
+        const m = possible[Math.floor(Math.random() * possible.length)];
         move(m.from[0], m.from[1], m.to[0], m.to[1]);
         render();
       }
-    }
-
-    function isValidBotMove(fromRow, fromCol, toRow, toCol) {
-      const piece = board[fromRow][fromCol];
-      const target = board[toRow][toCol];
-      if (target !== "." && target === target.toLowerCase()) return false;
-      if (fromRow === toRow && fromCol === toCol) return false;
-      return true;
     }
 
     createBoard();
