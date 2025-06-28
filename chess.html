@@ -6,78 +6,263 @@
   <title>Shadow Chess – Ram</title>
   <style>
     body {
-      background: black;
-      color: #0f0;
-      font-family: 'Courier New', Courier, monospace;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #000 100%);
+      color: #00ff41;
+      font-family: 'Fira Code', 'Courier New', Courier, monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 30px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Matrix-style background */
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 65, 0.1) 0%, transparent 50%);
     }
 
     h1 {
-      font-size: 2rem;
-      text-shadow: 0 0 10px #0f0;
+      font-size: 3rem;
+      text-shadow: 
+        0 0 10px #00ff41, 
+        0 0 20px #00ff41, 
+        0 0 40px #00ff41;
+      animation: neonPulse 2s ease-in-out infinite alternate, slideDown 1s ease-out;
+      margin-bottom: 20px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    @keyframes neonPulse {
+      from { 
+        text-shadow: 
+          0 0 10px #00ff41, 
+          0 0 20px #00ff41, 
+          0 0 40px #00ff41;
+      }
+      to { 
+        text-shadow: 
+          0 0 5px #00ff41, 
+          0 0 10px #00ff41, 
+          0 0 20px #00ff41,
+          0 0 40px #00ff41,
+          0 0 80px #00ff41;
+      }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .status {
-      margin-top: 10px;
-      font-size: 1rem;
-      color: #0f0;
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #00ff41;
+      background: rgba(0, 255, 65, 0.1);
+      padding: 15px 25px;
+      border-radius: 25px;
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      backdrop-filter: blur(10px);
+      animation: scaleIn 1s ease-out 0.5s both;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .online-dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      background-color: #0f0;
+      width: 12px;
+      height: 12px;
+      background-color: #00ff41;
       border-radius: 50%;
-      margin-right: 5px;
-      animation: pulse 1s infinite;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 10px #00ff41;
     }
 
     @keyframes pulse {
-      0% { opacity: 0.5; }
-      50% { opacity: 1; }
-      100% { opacity: 0.5; }
+      0% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.5; transform: scale(1); }
     }
 
     #chessboard {
       display: grid;
-      grid-template-columns: repeat(8, 60px);
-      grid-template-rows: repeat(8, 60px);
-      border: 2px solid #0f0;
-      box-shadow: 0 0 10px #0f0;
-      margin-top: 20px;
+      grid-template-columns: repeat(8, 70px);
+      grid-template-rows: repeat(8, 70px);
+      border: 3px solid #00ff41;
+      border-radius: 15px;
+      box-shadow: 
+        0 0 20px rgba(0, 255, 65, 0.5),
+        inset 0 0 20px rgba(0, 255, 65, 0.1);
+      margin-top: 30px;
+      animation: boardAppear 1s ease-out 0.8s both;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes boardAppear {
+      from { 
+        opacity: 0; 
+        transform: scale(0.8) rotateX(20deg); 
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1) rotateX(0deg); 
+      }
     }
 
     .cell {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 30px;
+      font-size: 35px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .white { background: #111; }
-    .black { background: #222; }
-    .selected { background: #333 !important; }
+    .cell::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .cell:hover::before {
+      transform: translateX(100%);
+    }
+
+    .white { 
+      background: linear-gradient(145deg, #1a1a1a, #111); 
+    }
+    
+    .black { 
+      background: linear-gradient(145deg, #2a2a2a, #222); 
+    }
+    
+    .selected { 
+      background: linear-gradient(145deg, rgba(0, 255, 65, 0.3), rgba(0, 255, 65, 0.1)) !important;
+      box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.5);
+      animation: selectedGlow 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes selectedGlow {
+      from { box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.5); }
+      to { box-shadow: inset 0 0 30px rgba(0, 255, 65, 0.8); }
+    }
+
+    .cell:hover {
+      transform: scale(1.05);
+      background: linear-gradient(145deg, rgba(0, 255, 65, 0.2), rgba(0, 255, 65, 0.1));
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+    }
+
+    .btn-home {
+      margin-top: 40px;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1));
+      border: 2px solid #00ff41;
+      color: #00ff41;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 1s ease-out 1.2s both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-home:hover::before {
+      left: 100%;
+    }
+
+    .btn-home:hover {
+      background: linear-gradient(45deg, rgba(0, 255, 65, 0.2), rgba(0, 255, 65, 0.1));
+      color: #fff;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 255, 65, 0.3);
+    }
 
     footer {
-      margin-top: 30px;
-      color: #444;
-      font-size: 0.8rem;
+      margin-top: 40px;
+      color: rgba(0, 255, 65, 0.7);
+      font-size: 1rem;
+      animation: fadeIn 1s ease-out 1.5s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      #chessboard {
+        grid-template-columns: repeat(8, 50px);
+        grid-template-rows: repeat(8, 50px);
+      }
+      .cell {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+      }
+      .status { font-size: 1rem; padding: 12px 20px; }
     }
   </style>
 </head>
 <body>
+  <div class="matrix-bg"></div>
+  
   <h1>♟️ Shadow Chess Bot</h1>
   <div class="status">
     <span class="online-dot"></span>Ram | Bot ELO: 1200 | Status: Online
   </div>
   <div id="chessboard"></div>
+  
+  <a href="index.html" class="btn-home">⬅ Back to Home</a>
   <footer>© 2025 Ram — AI Bot Mode: Shadow</footer>
 
   <script>
@@ -113,7 +298,10 @@
           cell.dataset.row = i;
           cell.dataset.col = j;
           const piece = board[i][j];
-          if (piece !== ".") cell.textContent = pieces[piece];
+          if (piece !== ".") {
+            cell.textContent = pieces[piece];
+            cell.style.textShadow = "0 0 10px currentColor";
+          }
           if (selected && selected.row == i && selected.col == j) {
             cell.classList.add("selected");
           }
@@ -130,7 +318,7 @@
           move(selected.row, selected.col, i, j);
           selected = null;
           render();
-          setTimeout(botMove, 500);
+          setTimeout(botMove, 800);
         } else {
           selected = null;
           render();

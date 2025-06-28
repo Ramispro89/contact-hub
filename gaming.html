@@ -8,36 +8,114 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
       padding: 40px 20px;
-      background: linear-gradient(to bottom right, #001f3f, #003366);
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background grid */
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 191, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    /* Glowing orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 191, 255, 0.3), transparent);
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .orb:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .orb:nth-child(2) {
+      width: 150px;
+      height: 150px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .orb:nth-child(3) {
+      width: 80px;
+      height: 80px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); opacity: 0.3; }
+      50% { transform: translateY(-30px) scale(1.1); opacity: 0.6; }
     }
 
     h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+      background: linear-gradient(45deg, #00bfff, #0080ff, #00bfff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: neonGlow 2s ease-in-out infinite alternate, slideDown 1s ease-out;
+      text-align: center;
+      font-weight: 800;
+      text-shadow: 0 0 30px rgba(0, 191, 255, 0.5);
+    }
+
+    @keyframes neonGlow {
+      from { filter: drop-shadow(0 0 10px #00bfff); }
+      to { filter: drop-shadow(0 0 20px #00bfff) drop-shadow(0 0 30px #0080ff); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .profile-card {
-      width: 280px;
-      height: 360px;
+      width: 320px;
+      height: 400px;
       perspective: 1000px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      animation: scaleIn 1s ease-out 0.5s both;
     }
 
     .card-inner {
       width: 100%;
       height: 100%;
       position: relative;
-      transition: transform 0.8s;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       transform-style: preserve-3d;
-      box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff70;
       border-radius: 24px;
     }
 
@@ -50,7 +128,9 @@
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
-      background: linear-gradient(145deg, #1f1f2f, #2e2e4d);
+      background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9));
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(0, 191, 255, 0.3);
       color: #fff;
       border-radius: 24px;
       text-align: center;
@@ -59,8 +139,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transform: rotateX(0deg);
-      transition: transform 0.3s;
+      box-shadow: 0 0 40px rgba(0, 191, 255, 0.2);
     }
 
     .card-front {
@@ -69,146 +148,238 @@
 
     .card-back {
       transform: rotateY(180deg);
+      background: linear-gradient(145deg, rgba(0, 191, 255, 0.1), rgba(22, 33, 62, 0.9));
     }
 
     .card-front img {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      border: 4px solid #fff;
+      border: 4px solid #00bfff;
       object-fit: cover;
       margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .card-front img:hover {
+      transform: scale(1.1);
     }
 
     .card-front h2 {
-      font-size: 1.4rem;
-      margin-bottom: 5px;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #00bfff;
     }
 
     .card-front p {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #ccc;
     }
 
     .card-back h3 {
-      font-size: 1.4rem;
-      color: #0ff;
+      font-size: 1.8rem;
+      color: #00bfff;
+      margin-bottom: 15px;
     }
 
     .card-back p {
       color: #ccc;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
     .game-section {
       width: 100%;
-      max-width: 700px;
+      max-width: 800px;
+      animation: slideUp 1s ease-out 0.8s both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .game-card {
-      background-color: #002b5c;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 15px #00bfff80;
-      transform: perspective(600px) rotateX(0deg);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 191, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 25px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      animation: slideInLeft 0.8s ease-out calc(var(--delay) * 0.1s) both;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .game-card:hover::before {
+      left: 100%;
     }
 
     .game-card:hover {
-      transform: rotateX(4deg) rotateY(4deg);
-      box-shadow: 0 0 25px #00ffffcc;
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(0, 191, 255, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 191, 255, 0.2);
     }
 
     .game-card h3 {
-      margin-bottom: 8px;
-      font-size: 1.5rem;
-      color: #87cefa;
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+      color: #00bfff;
+      font-weight: 600;
     }
 
     .game-card p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: #ddd;
+      line-height: 1.6;
+    }
+
+    .game-card strong {
+      color: #00bfff;
+      font-weight: 600;
     }
 
     .coming-soon {
-      background-color: #1a1a1a;
-      border: 2px dashed #888;
+      background: linear-gradient(145deg, rgba(40, 40, 40, 0.8), rgba(20, 20, 20, 0.8));
+      border: 2px dashed rgba(136, 136, 136, 0.5);
       color: #bbb;
       text-align: center;
+      position: relative;
+    }
+
+    .coming-soon::after {
+      content: '🚀';
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      animation: rocket 2s ease-in-out infinite;
+    }
+
+    @keyframes rocket {
+      0%, 100% { transform: translateY(-50%) rotate(0deg); }
+      50% { transform: translateY(-60%) rotate(10deg); }
     }
 
     .btn-home {
-      margin-top: 30px;
-      background: #00bfff;
+      margin-top: 40px;
+      background: linear-gradient(45deg, #00bfff, #0080ff);
       color: #fff;
-      padding: 10px 20px;
+      padding: 15px 30px;
       border: none;
-      border-radius: 10px;
-      font-weight: bold;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 8px 25px rgba(0, 191, 255, 0.3);
+      animation: slideUp 1s ease-out 1.2s both;
     }
 
     .btn-home:hover {
-      background: #0099cc;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0, 191, 255, 0.5);
+      background: linear-gradient(45deg, #0080ff, #00bfff);
     }
 
     footer {
-      margin-top: 40px;
-      color: #ccc;
-      font-size: 0.9rem;
+      margin-top: 50px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      animation: fadeIn 1s ease-out 1.5s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .profile-card { width: 280px; height: 360px; }
+      .game-card { padding: 20px; }
+      .game-card h3 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
+  <div class="grid-background"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
 
   <h1>🎮 Gaming Zone</h1>
 
-  <div class="profile-card" onclick="this.querySelector('.card-inner').classList.toggle('flipped')">
+  <div class="profile-card">
     <div class="card-inner">
       <div class="card-front">
-        <img src="ram-profile-pic.jpg" alt="Ram Profile">
+        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Ram Profile">
         <h2>Ram the Teenager</h2>
         <p>Gaming since 2K16</p>
       </div>
       <div class="card-back">
         <h3>Let's Play!</h3>
-        <p>Follow the journey of a gamer 💻🔥</p>
+        <p>Follow the journey of a gamer who never gives up. Ready to dominate every battlefield! 💻🔥</p>
       </div>
     </div>
   </div>
 
   <div class="game-section">
-    <div class="game-card">
-      <h3>Free Fire</h3>
+    <div class="game-card" style="--delay: 1">
+      <h3>🔥 Free Fire</h3>
       <p>ID: <strong>2803397893</strong><br>IGN: <strong>Javi</strong><br>Device: <strong>Infinix Zero 5G</strong></p>
     </div>
 
-    <div class="game-card">
-      <h3>Roblox</h3>
-      <p>Username: <strong>v8nanyak</strong></p>
+    <div class="game-card" style="--delay: 2">
+      <h3>🎮 Roblox</h3>
+      <p>Username: <strong>v8nanyak</strong><br>Building worlds, one block at a time!</p>
     </div>
 
-    <div class="game-card">
-      <h3>Minecraft</h3>
-      <p>ID: <strong>ramispro89</strong><br>Platform: <strong>TLauncher</strong></p>
+    <div class="game-card" style="--delay: 3">
+      <h3>⛏️ Minecraft</h3>
+      <p>ID: <strong>ramispro89</strong><br>Platform: <strong>TLauncher</strong><br>Crafting dreams into reality!</p>
     </div>
 
-    <div class="game-card coming-soon">
-      <h3>GTA Online</h3>
-      <p>Coming Soon</p>
+    <div class="game-card coming-soon" style="--delay: 4">
+      <h3>🚗 GTA Online</h3>
+      <p>Coming Soon - Preparing for Los Santos!</p>
     </div>
 
-    <div class="game-card coming-soon">
-      <h3>War Thunder</h3>
-      <p>Coming Soon</p>
+    <div class="game-card coming-soon" style="--delay: 5">
+      <h3>✈️ War Thunder</h3>
+      <p>Coming Soon - Ready for aerial combat!</p>
     </div>
   </div>
 
-  <button class="btn-home" onclick="location.href='index.html'">⬅ Back to Home</button>
+  <a href="index.html" class="btn-home">⬅ Back to Home</a>
 
-  <footer>© 2025 Ramrao Deshmukh</footer>
-
+  <footer>© 2025 Ramrao Deshmukh - Level Up Your Game</footer>
 </body>
 </html>

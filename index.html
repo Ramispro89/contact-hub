@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ram Deshmukh - Contact Hub</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -16,51 +20,126 @@
       padding: 40px 20px;
       position: relative;
       overflow-x: hidden;
-      background: linear-gradient(270deg, #e0c3fc, #8ec5fc, #c3ecff, #fceabb);
-      background-size: 800% 800%;
-      animation: gradientBG 15s ease infinite;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
     }
 
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    /* Animated background particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    /* Glassmorphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      color: #222;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
-      transition: color 0.3s ease-in-out;
+      font-size: 4rem;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s ease-in-out infinite, fadeInUp 1s ease-out;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -2px;
     }
 
-    h1:hover { color: #0057ff; }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
     .intro {
       max-width: 700px;
       text-align: center;
-      margin-bottom: 30px;
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.6;
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      animation: slideInLeft 1s ease-out 0.3s both;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
     }
 
     .skills {
-      background-color: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      margin: 30px 0;
+      padding: 30px;
+      margin: 40px 0;
       text-align: center;
-      max-width: 600px;
-      animation: fadeIn 1s ease;
+      max-width: 700px;
+      animation: scaleIn 1s ease-out 0.6s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skills::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 100%; }
     }
 
     .skills h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      color: #333;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #fff;
+      font-weight: 600;
     }
 
     .skills-list {
@@ -69,167 +148,302 @@
       gap: 20px;
       justify-content: center;
       font-size: 1.1rem;
-      color: #444;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .skill-tag {
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+      padding: 12px 24px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-tag:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 
     .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 40px 0;
     }
 
     .card {
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      padding: 25px 30px;
-      width: 250px;
+      padding: 30px;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      animation: slideInRight 1s ease-out calc(var(--delay) * 0.1s) both;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .card:hover::before {
+      transform: translateX(100%);
     }
 
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      transform: translateY(-15px) rotateY(5deg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
     .card a {
       text-decoration: none;
-      color: #333;
+      color: #fff;
       font-weight: 600;
-      font-size: 1.2rem;
-      transition: color 0.2s ease-in-out;
+      font-size: 1.3rem;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+      display: block;
     }
 
-    .card a:hover { color: #0077ff; }
+    .card a:hover {
+      color: #f0f0f0;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .special-links {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin: 50px 0;
+      align-items: center;
+    }
 
     .gaming-link, .hacker-link {
-      margin-top: 40px;
-      font-size: 1.8rem;
-      font-weight: bold;
+      font-size: 2rem;
+      font-weight: 700;
+      animation: scaleIn 1s ease-out 1.2s both;
+      position: relative;
     }
 
     .gaming-link a {
-      color: #0057ff;
+      color: #4facfe;
       text-decoration: none;
-      transition: color 0.2s ease-in-out;
+      transition: all 0.4s ease;
+      position: relative;
+      padding: 15px 30px;
+      border-radius: 15px;
+      background: linear-gradient(45deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.1));
+      border: 2px solid rgba(79, 172, 254, 0.3);
+      display: inline-block;
     }
 
     .gaming-link a:hover {
-      text-decoration: underline;
-      color: #222;
+      transform: scale(1.1);
+      color: #fff;
+      background: linear-gradient(45deg, rgba(79, 172, 254, 0.3), rgba(0, 242, 254, 0.3));
+      box-shadow: 0 0 30px rgba(79, 172, 254, 0.5);
     }
 
     .hacker-link a {
       color: #00ffea;
       text-decoration: none;
-      transition: all 0.3s ease-in-out;
-      text-shadow: 0 0 5px #00ffee, 0 0 10px #00ffee, 0 0 20px #00ffee;
+      transition: all 0.4s ease;
+      text-shadow: 0 0 10px #00ffea;
+      position: relative;
+      padding: 15px 30px;
+      border-radius: 15px;
+      background: linear-gradient(45deg, rgba(0, 255, 234, 0.1), rgba(0, 255, 234, 0.05));
+      border: 2px solid rgba(0, 255, 234, 0.3);
+      display: inline-block;
     }
 
     .hacker-link a:hover {
+      transform: scale(1.1);
       color: #fff;
-      text-shadow: 0 0 8px #00ffee, 0 0 16px #00ffee, 0 0 30px #00ffee;
+      text-shadow: 0 0 20px #00ffea, 0 0 40px #00ffea;
+      background: linear-gradient(45deg, rgba(0, 255, 234, 0.3), rgba(0, 255, 234, 0.1));
+      box-shadow: 0 0 40px rgba(0, 255, 234, 0.6);
     }
 
     footer {
-      margin-top: 40px;
-      font-size: 0.9rem;
-      color: #888;
+      margin-top: 60px;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      animation: fadeInUp 1s ease-out 1.5s both;
     }
 
     .review-button {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #ff0077;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
       color: white;
-      padding: 12px 18px;
-      font-weight: bold;
-      font-size: 1rem;
-      border-radius: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      padding: 15px 25px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
       z-index: 999;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4); }
+      50% { box-shadow: 0 8px 35px rgba(255, 107, 107, 0.6); }
+      100% { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4); }
     }
 
     .review-button:hover {
-      background-color: #cc005f;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      .card { width: 90%; }
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
       .intro { font-size: 1rem; padding: 0 10px; }
-      .skills-list {
-        flex-direction: column;
-        gap: 10px;
-      }
+      .skills-list { flex-direction: column; align-items: center; }
+      .card-container { grid-template-columns: 1fr; }
+      .gaming-link, .hacker-link { font-size: 1.5rem; }
+      .special-links { gap: 20px; }
+    }
+
+    /* Loading animation */
+    .loading {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
     }
   </style>
 </head>
 <body>
+  <div class="particles" id="particles"></div>
 
-  <h1>Ram Deshmukh</h1>
+  <h1 class="loading">Ram Deshmukh</h1>
 
-  <div class="intro">
+  <div class="intro glass loading">
     Hey! I'm Ram — a creative tech enthusiast who loves building cool digital stuff.  
     Whether it's a bot, a website, or an Insta reel, I bring ideas to life with flair.  
     Let's connect and create something amazing together!
   </div>
 
-  <div class="skills">
+  <div class="skills glass loading">
     <h2>💡 My Skills</h2>
     <div class="skills-list">
-      <span>🤖 Making AI Bots</span>
-      <span>💻 Coding</span>
-      <span>🎨 Creative Imaging</span>
-      <span>♟️ Chess</span>
+      <div class="skill-tag">🤖 Making AI Bots</div>
+      <div class="skill-tag">💻 Coding</div>
+      <div class="skill-tag">🎨 Creative Imaging</div>
+      <div class="skill-tag">♟️ Chess</div>
     </div>
   </div>
 
   <div class="card-container">
-    <div class="card">
+    <div class="card glass loading" style="--delay: 1">
       <a href="https://wa.me/919673978223" target="_blank">📱 WhatsApp</a>
     </div>
-    <div class="card">
+    <div class="card glass loading" style="--delay: 2">
       <a href="https://www.instagram.com/crazyraammm?igsh=MW0zOWg3Z3l3eTZwMQ==" target="_blank">📸 Instagram</a>
     </div>
-    <div class="card">
+    <div class="card glass loading" style="--delay: 3">
       <a href="https://discord.gg/vHxZxf6y" target="_blank">🎮 Discord</a>
     </div>
-    <div class="card">
+    <div class="card glass loading" style="--delay: 4">
       <a href="mailto:tvdeshmukh.9049388988@gmail.com">📧 Email Me</a>
     </div>
   </div>
 
-  <div class="card-container" style="margin-top: 40px;">
-    <div class="card">
+  <div class="card-container">
+    <div class="card glass loading" style="--delay: 5">
       <a href="chess.html">♟️ Challenge My Brain</a>
     </div>
-    <div class="card">
+    <div class="card glass loading" style="--delay: 6">
       <a href="cat.html">🐾 My Cats</a>
     </div>
   </div>
 
-  <div class="gaming-link">
-    <a href="gaming.html">🎮 Visit My Gaming Zone</a>
+  <div class="special-links">
+    <div class="gaming-link loading">
+      <a href="gaming.html">🎮 Visit My Gaming Zone</a>
+    </div>
+
+    <div class="hacker-link loading">
+      <a href="hacker.html">💻 Visit My Hacker Zone</a>
+    </div>
   </div>
 
-  <div class="hacker-link">
-    <a href="hacker.html">💻 Visit My Hacker Zone</a>
-  </div>
-
-  <footer>© 2025 Ram Deshmukh</footer>
+  <footer class="loading">© 2025 Ram Deshmukh</footer>
 
   <a href="reviews.html" class="review-button">📣 Drop Review</a>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Staggered loading animation
+    function animateElements() {
+      const elements = document.querySelectorAll('.loading');
+      elements.forEach((element, index) => {
+        setTimeout(() => {
+          element.style.opacity = '1';
+        }, index * 100);
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      animateElements();
+    });
+
+    // Add interactive hover effects
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-15px) rotateY(5deg) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) rotateY(0) scale(1)';
+      });
+    });
+  </script>
 
   <script defer src="https://app.fastbots.ai/embed.js" data-bot-id="cmbqg8q2n0003oelx9zbrjf3g"></script>
 </body>

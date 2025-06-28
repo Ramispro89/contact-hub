@@ -9,19 +9,70 @@
 
     body {
       background-color: #000;
-      font-family: 'Courier New', monospace;
+      font-family: 'Fira Code', 'Courier New', monospace;
       color: #00ffae;
       overflow-x: hidden;
       position: relative;
+      min-height: 100vh;
     }
 
-    #globeContainer {
+    /* Matrix rain effect */
+    .matrix-rain {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .matrix-column {
+      position: absolute;
+      top: -100%;
+      font-size: 14px;
+      line-height: 14px;
+      color: #00ffae;
+      animation: matrixFall linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes matrixFall {
+      to { top: 100%; }
+    }
+
+    /* Glitch effect */
+    .glitch {
+      position: relative;
+      animation: glitch 2s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+    }
+
+    /* Cyber grid background */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 174, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 174, 0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+      animation: gridPulse 4s ease-in-out infinite;
       z-index: -2;
-      width: 100vw;
-      height: 100vh;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
 
     #worldMapOverlay {
@@ -32,130 +83,324 @@
       height: 100vh;
       background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular-projection.jpg/1024px-Equirectangular-projection.jpg');
       background-size: cover;
-      opacity: 0.05;
+      opacity: 0.03;
       z-index: -3;
-      filter: contrast(1.5) brightness(0.8);
+      filter: contrast(1.5) brightness(0.8) hue-rotate(120deg);
     }
 
     header {
       text-align: center;
       padding: 40px 20px 20px;
+      position: relative;
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 4rem;
       color: #00ffae;
-      text-shadow: 0 0 10px #00ffae, 0 0 20px #00ffae;
+      text-shadow: 
+        0 0 10px #00ffae, 
+        0 0 20px #00ffae, 
+        0 0 40px #00ffae,
+        0 0 80px #00ffae;
+      animation: neonFlicker 3s ease-in-out infinite alternate, slideDown 1s ease-out;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+
+    @keyframes neonFlicker {
+      0%, 100% { 
+        text-shadow: 
+          0 0 10px #00ffae, 
+          0 0 20px #00ffae, 
+          0 0 40px #00ffae,
+          0 0 80px #00ffae;
+      }
+      50% { 
+        text-shadow: 
+          0 0 5px #00ffae, 
+          0 0 10px #00ffae, 
+          0 0 20px #00ffae,
+          0 0 40px #00ffae;
+      }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     #ipDisplay {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       text-align: center;
       margin-top: 20px;
+      background: linear-gradient(45deg, #00ffae, #00ff88, #00ffae);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 2s ease-in-out infinite, scaleIn 1s ease-out 0.5s both;
+      font-weight: 600;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     #terminal {
-      background: rgba(0, 0, 0, 0.5);
+      background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(0, 20, 10, 0.9));
+      backdrop-filter: blur(10px);
       margin: 30px auto;
-      padding: 20px;
+      padding: 25px;
       border: 2px solid #00ffae;
+      border-radius: 15px;
       width: 90%;
-      max-width: 600px;
-      height: 220px;
+      max-width: 700px;
+      height: 280px;
       overflow-y: auto;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      border-radius: 10px;
+      font-size: 1rem;
+      line-height: 1.6;
+      box-shadow: 
+        0 0 20px rgba(0, 255, 174, 0.3),
+        inset 0 0 20px rgba(0, 255, 174, 0.1);
+      animation: slideUp 1s ease-out 0.8s both;
+      position: relative;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #terminal::before {
+      content: '> SYSTEM TERMINAL';
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background: #000;
+      padding: 0 10px;
+      color: #00ffae;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    #terminal p {
+      margin-bottom: 8px;
+      animation: typewriter 0.5s ease-out;
+    }
+
+    @keyframes typewriter {
+      from { width: 0; opacity: 0; }
+      to { width: 100%; opacity: 1; }
     }
 
     .challenge {
       text-align: center;
-      margin: 30px;
-      font-size: 1.3rem;
+      margin: 40px auto;
+      max-width: 800px;
+      font-size: 1.4rem;
       color: #ff0044;
-      text-shadow: 0 0 8px #ff0044, 0 0 15px #ff0044;
-      padding: 10px;
-      background: rgba(255, 0, 0, 0.05);
-      border: 1px solid #ff0044;
-      border-radius: 12px;
+      text-shadow: 0 0 10px #ff0044, 0 0 20px #ff0044;
+      padding: 25px;
+      background: linear-gradient(145deg, rgba(255, 0, 68, 0.1), rgba(0, 0, 0, 0.8));
+      backdrop-filter: blur(10px);
+      border: 2px solid #ff0044;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      animation: slideInRight 1s ease-out 1.2s both;
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .challenge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 68, 0.2), transparent);
+      animation: dangerSweep 3s infinite;
+    }
+
+    @keyframes dangerSweep {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .challenge strong {
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
 
     .btn-home {
       display: block;
-      margin: 30px auto;
-      background: none;
+      margin: 40px auto;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 174, 0.1));
       border: 2px solid #00ffae;
       color: #00ffae;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 1s ease-out 1.5s both;
+    }
+
+    .btn-home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 174, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-home:hover::before {
+      left: 100%;
     }
 
     .btn-home:hover {
-      background: #00ffae;
-      color: #000;
+      background: linear-gradient(45deg, rgba(0, 255, 174, 0.2), rgba(0, 255, 174, 0.1));
+      color: #fff;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 255, 174, 0.3);
     }
 
     .breach-popup {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(255, 0, 0, 0.1);
+      top: 30px;
+      right: 30px;
+      background: linear-gradient(145deg, rgba(255, 0, 68, 0.2), rgba(0, 0, 0, 0.9));
+      backdrop-filter: blur(10px);
       border: 2px solid #ff0044;
-      padding: 15px 25px;
-      font-size: 1.2rem;
+      padding: 20px 30px;
+      font-size: 1.3rem;
       color: #ff0044;
-      font-weight: bold;
-      text-shadow: 0 0 5px #ff0044;
-      box-shadow: 0 0 10px #ff0044;
-      border-radius: 10px;
-      animation: flashBreach 1s infinite alternate;
+      font-weight: 700;
+      text-shadow: 0 0 10px #ff0044;
+      box-shadow: 0 0 30px rgba(255, 0, 68, 0.5);
+      border-radius: 15px;
+      animation: breachAlert 1.5s infinite alternate, slideInRight 1s ease-out;
       z-index: 999;
     }
 
-    @keyframes flashBreach {
-      from { box-shadow: 0 0 10px #ff0044; }
-      to { box-shadow: 0 0 30px #ff0044; background-color: rgba(255, 0, 0, 0.2); }
+    @keyframes breachAlert {
+      from { 
+        box-shadow: 0 0 20px rgba(255, 0, 68, 0.5);
+        transform: scale(1);
+      }
+      to { 
+        box-shadow: 0 0 40px rgba(255, 0, 68, 0.8);
+        transform: scale(1.05);
+      }
+    }
+
+    /* Scrollbar styling */
+    #terminal::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #terminal::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+    }
+
+    #terminal::-webkit-scrollbar-thumb {
+      background: #00ffae;
+      border-radius: 4px;
+    }
+
+    #terminal::-webkit-scrollbar-thumb:hover {
+      background: #00ff88;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      #ipDisplay { font-size: 1.4rem; }
+      .challenge { font-size: 1.1rem; padding: 20px; }
+      #terminal { height: 220px; padding: 20px; }
     }
   </style>
 </head>
 <body>
-
+  <div class="cyber-grid"></div>
+  <div class="matrix-rain" id="matrixRain"></div>
   <div id="worldMapOverlay"></div>
-  <div id="globeContainer"></div>
-  <div class="breach-popup">⚠ SYSTEM BREACH DETECTED</div>
+  <div class="breach-popup glitch">⚠ SYSTEM BREACH DETECTED</div>
 
   <header>
-    <h1>💻 HACKER ZONE 💻</h1>
+    <h1 class="glitch">💻 HACKER ZONE 💻</h1>
     <div id="ipDisplay">Locating IP...</div>
   </header>
 
   <div id="terminal">
-    <p>Initializing traceroute...</p>
-    <p>Accessing DNS servers...</p>
-    <p>Encrypting packets...</p>
-    <p>Injecting proxies...</p>
+    <p>Initializing quantum traceroute...</p>
+    <p>Accessing DNS servers through TOR network...</p>
+    <p>Encrypting packets with AES-256...</p>
+    <p>Injecting stealth proxies...</p>
     <p>Rotating spoofed IP address...</p>
     <p>Open Ports: 22 (SSH), 443 (HTTPS), 8080 (Proxy), 3306 (MySQL), 27017 (MongoDB)</p>
     <p>Firewall: WallaSec v7.8 [Active] | AI-Powered Intrusion Detection</p>
+    <p>Neural network defense protocols: ENGAGED</p>
   </div>
 
   <div class="challenge">
-    ☠ OPEN CHALLENGE: Try to hack this server or trace its hidden location.<br>
-    If you succeed, you earn the title: <strong style="color:lime">"SHADOW HUNTER"</strong>.<br>
-    This server is shielded by WallaFire encrypted firewalls operated by GhostNet Security — a secret branch of cyber defense.<br>
+    ☠ OPEN CHALLENGE: Try to hack this server or trace its hidden location.<br><br>
+    If you succeed, you earn the title: <strong>"SHADOW HUNTER"</strong>.<br><br>
+    This server is shielded by WallaFire encrypted firewalls operated by GhostNet Security — a secret branch of cyber defense.<br><br>
     <em>This webpage is considered <u>unbreakable</u> in all dark web tests.</em>
   </div>
 
-  <button class="btn-home" onclick="location.href='index.html'">⬅ Back to Home</button>
-
-  <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
-  <script src="https://unpkg.com/three-globe@2.27.1/dist/three-globe.min.js"></script>
-  <script src="https://unpkg.com/three@0.152.2/examples/js/controls/OrbitControls.js"></script>
+  <a href="index.html" class="btn-home">⬅ Back to Home</a>
 
   <script>
+    // Matrix rain effect
+    function createMatrixRain() {
+      const matrixContainer = document.getElementById('matrixRain');
+      const characters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      
+      for (let i = 0; i < 50; i++) {
+        const column = document.createElement('div');
+        column.className = 'matrix-column';
+        column.style.left = Math.random() * 100 + '%';
+        column.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        column.style.animationDelay = Math.random() * 2 + 's';
+        
+        let columnText = '';
+        for (let j = 0; j < 20; j++) {
+          columnText += characters.charAt(Math.floor(Math.random() * characters.length)) + '<br>';
+        }
+        column.innerHTML = columnText;
+        
+        matrixContainer.appendChild(column);
+      }
+    }
+
     const ipDisplay = document.getElementById('ipDisplay');
     const terminal = document.getElementById('terminal');
 
@@ -178,53 +423,51 @@
       const { ip, location } = ips[ipIndex];
       ipDisplay.innerHTML = `Current IP: <strong>${ip}</strong> <br>Location: <strong>${location}</strong>`;
       const log = document.createElement('p');
-      log.textContent = `New spoofed IP detected: ${ip} (${location})`;
+      log.textContent = `[${new Date().toLocaleTimeString()}] New spoofed IP detected: ${ip} (${location})`;
+      log.style.color = '#00ff88';
       terminal.appendChild(log);
       terminal.scrollTop = terminal.scrollHeight;
       ipIndex = (ipIndex + 1) % ips.length;
     }
 
-    setInterval(updateIP, 3000);
-    updateIP();
-
-    const Globe = window.Globe;
-    const container = document.getElementById('globeContainer');
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera();
-    camera.aspect = container.offsetWidth / container.offsetHeight;
-    camera.updateProjectionMatrix();
-    camera.position.z = 250;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(container.offsetWidth, container.offsetHeight);
-    container.appendChild(renderer.domElement);
-
-    const globe = Globe()
-      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-      .showAtmosphere(true)
-      .atmosphereColor('#00ffae')
-      .atmosphereAltitude(0.25);
-
-    scene.add(globe);
-
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 1;
-    controls.enableZoom = false;
-
-    function animate() {
-      controls.update();
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+    // Enhanced terminal logging
+    function addTerminalLog(message, color = '#00ffae') {
+      const log = document.createElement('p');
+      log.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      log.style.color = color;
+      terminal.appendChild(log);
+      terminal.scrollTop = terminal.scrollHeight;
     }
-    animate();
 
-    window.addEventListener('resize', () => {
-      camera.aspect = container.offsetWidth / container.offsetHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
+    // Simulate hacking activities
+    const hackingMessages = [
+      'Bypassing firewall layer 1...',
+      'Decrypting SSL certificates...',
+      'Injecting payload into target system...',
+      'Escalating privileges...',
+      'Accessing restricted directories...',
+      'Downloading classified files...',
+      'Covering digital footprints...',
+      'Mission accomplished - Ghost mode activated'
+    ];
+
+    let messageIndex = 0;
+    function simulateHacking() {
+      if (messageIndex < hackingMessages.length) {
+        addTerminalLog(hackingMessages[messageIndex], '#ff6b6b');
+        messageIndex++;
+      } else {
+        messageIndex = 0;
+      }
+    }
+
+    // Initialize effects
+    document.addEventListener('DOMContentLoaded', () => {
+      createMatrixRain();
+      updateIP();
+      
+      setInterval(updateIP, 4000);
+      setInterval(simulateHacking, 6000);
     });
   </script>
 </body>

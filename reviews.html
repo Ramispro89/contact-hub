@@ -8,7 +8,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -16,98 +16,257 @@
       padding: 40px 20px;
       position: relative;
       overflow-x: hidden;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
     }
 
-    body::before {
-      content: "";
+    /* Animated background particles */
+    .particles {
       position: fixed;
-      top: 0; left: 0;
-      height: 100%; width: 100%;
-      background: linear-gradient(270deg, #e0c3fc, #8ec5fc, #c3ecff, #fceabb);
-      background-size: 800% 800%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
       z-index: -1;
-      animation: gradientBG 15s ease infinite;
     }
 
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+      50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; }
+    }
+
+    /* Glassmorphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      color: #222;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+      background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s ease-in-out infinite, slideDown 1s ease-out;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .review-box {
-      max-width: 500px;
+      max-width: 600px;
       width: 100%;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      padding: 40px;
       text-align: center;
+      animation: scaleIn 1s ease-out 0.5s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .review-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shine 4s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .review-box p {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
     }
 
     .review-box input {
       width: 100%;
-      padding: 15px;
-      border-radius: 10px;
-      border: 2px solid #ccc;
-      font-size: 1rem;
-      margin-top: 10px;
+      padding: 20px 25px;
+      border-radius: 50px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      font-size: 1.1rem;
+      margin-top: 15px;
       outline: none;
+      color: #fff;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .review-box input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .review-box input:focus {
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
     .response {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: crimson;
-      font-weight: bold;
+      margin-top: 30px;
+      font-size: 1.4rem;
+      color: #ff6b6b;
+      font-weight: 700;
       display: none;
+      animation: responseAppear 0.8s ease-out;
+      text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+      padding: 20px;
+      background: rgba(255, 107, 107, 0.1);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 107, 107, 0.3);
+    }
+
+    @keyframes responseAppear {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px) scale(0.9); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
     }
 
     .btn-home {
-      margin-top: 30px;
-      background: #00bfff;
+      margin-top: 40px;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
       color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
+      padding: 15px 30px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 1s ease-out 0.8s both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-home:hover::before {
+      left: 100%;
     }
 
     .btn-home:hover {
-      background: #0099cc;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
     }
 
     footer {
-      margin-top: 40px;
-      font-size: 0.9rem;
-      color: #888;
+      margin-top: 50px;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+      animation: fadeIn 1s ease-out 1.2s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .review-box { padding: 30px 20px; }
+      .review-box p { font-size: 1.1rem; }
+      .review-box input { padding: 15px 20px; font-size: 1rem; }
+      .response { font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
+  <div class="particles" id="particles"></div>
 
   <h1>💬 Drop Your Review</h1>
 
-  <div class="review-box">
+  <div class="review-box glass">
     <p>Be brutally honest. Say anything...</p>
     <input type="text" id="reviewInput" placeholder="Type your opinion & hit Enter...">
-    <div class="response" id="responseText">Fuck your opinion, I don’t care.</div>
+    <div class="response" id="responseText">Fuck your opinion, I don't care.</div>
   </div>
 
-  <button class="btn-home" onclick="location.href='index.html'">⬅ Back to Home</button>
+  <a href="index.html" class="btn-home">⬅ Back to Home</a>
 
   <footer>© 2025 Ramrao Deshmukh</footer>
 
   <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 40;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
     const input = document.getElementById("reviewInput");
     const response = document.getElementById("responseText");
 
@@ -115,9 +274,29 @@
       if (event.key === "Enter" && input.value.trim() !== "") {
         response.style.display = "block";
         input.disabled = true;
+        input.style.opacity = "0.6";
+        input.style.cursor = "not-allowed";
+        
+        // Add a subtle shake effect to the response
+        response.style.animation = "responseAppear 0.8s ease-out, shake 0.5s ease-in-out 0.8s";
       }
     });
-  </script>
 
+    // Add shake animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize particles
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+    });
+  </script>
 </body>
 </html>
