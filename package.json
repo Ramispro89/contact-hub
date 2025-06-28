@@ -1,0 +1,23 @@
+{
+  "name": "ram-deshmukh-website",
+  "version": "1.0.0",
+  "description": "Ram Deshmukh's personal website with enhanced animations and styling",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "start": "npx serve . -p 3000",
+    "build": "echo 'Static site - no build needed'",
+    "preview": "npx serve . -p 4173"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "personal",
+    "ram-deshmukh"
+  ],
+  "author": "Ram Deshmukh",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
