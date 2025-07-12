@@ -1,388 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alex Morgan - AI Enthusiast | Future Research Scientist</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ramrao Deshmukh - Contact Hub</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      color: #ffffff;
+    }
+
+    /* Floating particles background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3.5rem;
+      margin-bottom: 40px;
+      background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s ease-in-out infinite, slideDown 1s ease-out;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      width: 100%;
+      animation: gridAppear 1s ease-out 0.5s both;
+    }
+
+    @keyframes gridAppear {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 25px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.8s ease-out calc(var(--delay) * 0.1s) both;
+    }
+
+    @keyframes cardSlideIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(50px) rotateX(20deg); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) rotateX(0deg); 
+      }
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .contact-card:hover::before {
+      left: 100%;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .contact-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .contact-card p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 25px;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .contact-card a {
+      display: inline-block;
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .contact-card a:hover::before {
+      left: 100%;
+    }
+
+    .contact-card a:hover {
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+      animation: iconBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes iconBounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      animation: fadeIn 1s ease-out 1.5s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .contact-grid { 
+        grid-template-columns: 1fr; 
+        gap: 20px; 
+      }
+      .contact-card { 
+        padding: 25px; 
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-container">
-      <div class="nav-logo">
-        <span class="logo-text">AM</span>
-      </div>
-      <ul class="nav-menu">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <div class="nav-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+  <div class="particles" id="particles"></div>
+
+  <h1>🌟 Ramrao Deshmukh</h1>
+
+  <div class="contact-grid">
+    <div class="contact-card" style="--delay: 1">
+      <span class="icon">🎮</span>
+      <h2>Gaming Zone</h2>
+      <p>Explore my gaming profiles, achievements, and favorite games across multiple platforms.</p>
+      <a href="gaming.html">Enter Gaming Zone</a>
     </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section id="home" class="hero">
-    <div class="hero-background">
-      <div class="hero-particles"></div>
-      <div class="hero-gradient"></div>
+    <div class="contact-card" style="--delay: 2">
+      <span class="icon">🐾</span>
+      <h2>My Cats</h2>
+      <p>Meet my adorable feline companions and see their cute photos and personalities.</p>
+      <a href="cat.html">Meet My Cats</a>
     </div>
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="hero-name">Alex Morgan</span>
-        <span class="hero-subtitle">AI Enthusiast | Future Research Scientist</span>
-      </h1>
-      <p class="hero-description">
-        Crafting the future through artificial intelligence and innovative research
-      </p>
-      <button class="hero-cta">See My Work</button>
+
+    <div class="contact-card" style="--delay: 3">
+      <span class="icon">♟️</span>
+      <h2>Chess Bot</h2>
+      <p>Challenge my AI chess bot and test your strategic skills in this classic game.</p>
+      <a href="chess.html">Play Chess</a>
     </div>
-    <div class="hero-scroll">
-      <div class="scroll-indicator"></div>
+
+    <div class="contact-card" style="--delay: 4">
+      <span class="icon">💻</span>
+      <h2>Hacker Zone</h2>
+      <p>Enter the matrix and explore cybersecurity challenges and coding adventures.</p>
+      <a href="hacker.html">Enter Hacker Zone</a>
     </div>
-  </section>
 
-  <!-- About Section -->
-  <section id="about" class="about">
-    <div class="container">
-      <div class="about-content">
-        <div class="about-image">
-          <div class="image-container">
-            <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Alex Morgan" class="profile-image">
-            <div class="image-ring"></div>
-          </div>
-        </div>
-        <div class="about-text">
-          <h2 class="section-title">About Me</h2>
-          <p class="about-description">
-            I'm a passionate AI enthusiast with a vision to revolutionize how we interact with technology. 
-            Currently pursuing advanced studies in machine learning and neural networks, I'm dedicated to 
-            pushing the boundaries of artificial intelligence research.
-          </p>
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3>2024 - Present</h3>
-                <p>AI Research & Development</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3>2022 - 2024</h3>
-                <p>Computer Science Studies</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <h3>2020 - 2022</h3>
-                <p>Programming Foundation</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="contact-card" style="--delay: 5">
+      <span class="icon">🚀</span>
+      <h2>Skills</h2>
+      <p>Discover my technical abilities, programming languages, and creative expertise.</p>
+      <a href="skills.html">View Skills</a>
     </div>
-  </section>
 
-  <!-- Skills Section -->
-  <section id="skills" class="skills">
-    <div class="container">
-      <h2 class="section-title">Skills & Expertise</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3 class="category-title">Programming Languages</h3>
-          <div class="skill-cards">
-            <div class="skill-card">
-              <div class="skill-icon">🐍</div>
-              <h4>Python</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="90"></div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-icon">⚛️</div>
-              <h4>JavaScript</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="85"></div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-icon">🔧</div>
-              <h4>C++</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="75"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="skill-category">
-          <h3 class="category-title">AI & ML Tools</h3>
-          <div class="skill-cards">
-            <div class="skill-card">
-              <div class="skill-icon">🧠</div>
-              <h4>TensorFlow</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="88"></div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-icon">🔥</div>
-              <h4>PyTorch</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="82"></div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-icon">📊</div>
-              <h4>Scikit-learn</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="90"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h3 class="category-title">Soft Skills</h3>
-          <div class="skill-cards">
-            <div class="skill-card">
-              <div class="skill-icon">💡</div>
-              <h4>Problem Solving</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="95"></div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-icon">🎯</div>
-              <h4>Research</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="92"></div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-icon">🤝</div>
-              <h4>Leadership</h4>
-              <div class="skill-progress">
-                <div class="progress-bar" data-progress="87"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="contact-card" style="--delay: 6">
+      <span class="icon">💬</span>
+      <h2>Reviews</h2>
+      <p>Share your thoughts, feedback, or just drop a message. All opinions welcome!</p>
+      <a href="reviews.html">Leave Review</a>
     </div>
-  </section>
+  </div>
 
-  <!-- Projects Section -->
-  <section id="projects" class="projects">
-    <div class="container">
-      <h2 class="section-title">Featured Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Neural Network Visualization">
-            <div class="project-overlay">
-              <div class="project-links">
-                <a href="#" class="project-link">Live Demo</a>
-                <a href="#" class="project-link">GitHub</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-content">
-            <h3>Neural Network Visualizer</h3>
-            <p>Interactive 3D visualization tool for understanding deep learning architectures and training processes.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>TensorFlow</span>
-              <span>Three.js</span>
-            </div>
-          </div>
-        </div>
+  <footer>© 2025 Ramrao Deshmukh - Contact Hub</footer>
 
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=400" alt="AI Chatbot">
-            <div class="project-overlay">
-              <div class="project-links">
-                <a href="#" class="project-link">Live Demo</a>
-                <a href="#" class="project-link">GitHub</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-content">
-            <h3>Intelligent Chatbot</h3>
-            <p>Advanced conversational AI with natural language processing and context awareness capabilities.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>NLP</span>
-              <span>React</span>
-            </div>
-          </div>
-        </div>
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
 
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://images.pexels.com/photos/8386422/pexels-photo-8386422.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Computer Vision">
-            <div class="project-overlay">
-              <div class="project-links">
-                <a href="#" class="project-link">Live Demo</a>
-                <a href="#" class="project-link">GitHub</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-content">
-            <h3>Computer Vision Suite</h3>
-            <p>Real-time object detection and image classification system with custom trained models.</p>
-            <div class="project-tech">
-              <span>OpenCV</span>
-              <span>PyTorch</span>
-              <span>Flask</span>
-            </div>
-          </div>
-        </div>
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
 
-        <div class="project-card">
-          <div class="project-image">
-            <img src="https://images.pexels.com/photos/8386427/pexels-photo-8386427.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Data Analytics">
-            <div class="project-overlay">
-              <div class="project-links">
-                <a href="#" class="project-link">Live Demo</a>
-                <a href="#" class="project-link">GitHub</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-content">
-            <h3>Predictive Analytics Platform</h3>
-            <p>Machine learning platform for business intelligence and predictive modeling with interactive dashboards.</p>
-            <div class="project-tech">
-              <span>Python</span>
-              <span>Pandas</span>
-              <span>D3.js</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    // Initialize particles
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+    });
 
-  <!-- Resume Section -->
-  <section id="resume" class="resume">
-    <div class="container">
-      <h2 class="section-title">Resume</h2>
-      <div class="resume-content">
-        <div class="resume-section">
-          <h3>Education</h3>
-          <div class="resume-item">
-            <h4>Master of Science in Artificial Intelligence</h4>
-            <p>Stanford University • 2024-2026</p>
-          </div>
-          <div class="resume-item">
-            <h4>Bachelor of Science in Computer Science</h4>
-            <p>MIT • 2020-2024 • Magna Cum Laude</p>
-          </div>
-        </div>
-        
-        <div class="resume-section">
-          <h3>Certifications</h3>
-          <div class="resume-item">
-            <h4>Deep Learning Specialization</h4>
-            <p>Coursera • 2023</p>
-          </div>
-          <div class="resume-item">
-            <h4>AWS Machine Learning</h4>
-            <p>Amazon Web Services • 2023</p>
-          </div>
-        </div>
-
-        <div class="resume-section">
-          <h3>Experience</h3>
-          <div class="resume-item">
-            <h4>AI Research Intern</h4>
-            <p>Google DeepMind • Summer 2023</p>
-          </div>
-          <div class="resume-item">
-            <h4>Machine Learning Engineer</h4>
-            <p>Tesla • 2022-2023</p>
-          </div>
-        </div>
-      </div>
-      <button class="resume-download">Download Resume PDF</button>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
-      <div class="contact-content">
-        <div class="contact-form">
-          <form class="form">
-            <div class="form-group">
-              <input type="text" id="name" required>
-              <label for="name">Your Name</label>
-            </div>
-            <div class="form-group">
-              <input type="email" id="email" required>
-              <label for="email">Your Email</label>
-            </div>
-            <div class="form-group">
-              <textarea id="message" required></textarea>
-              <label for="message">Your Message</label>
-            </div>
-            <button type="submit" class="form-submit">Send Message</button>
-          </form>
-        </div>
-        
-        <div class="contact-info">
-          <div class="social-links">
-            <a href="#" class="social-link">
-              <div class="social-icon">📧</div>
-              <span>Email</span>
-            </a>
-            <a href="#" class="social-link">
-              <div class="social-icon">💼</div>
-              <span>LinkedIn</span>
-            </a>
-            <a href="#" class="social-link">
-              <div class="social-icon">🐙</div>
-              <span>GitHub</span>
-            </a>
-            <a href="#" class="social-link">
-              <div class="social-icon">🐦</div>
-              <span>Twitter</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <p>&copy; 2024 Alex Morgan. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+    // Add interactive hover effects
+    document.querySelectorAll('.contact-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-15px) scale(1.05)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  </script>
 </body>
 </html>
