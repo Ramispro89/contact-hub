@@ -3,11 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ramrao Deshmukh - Contact Hub</title>
+  <title>Ramrao Deshmukh - Luxury Portfolio</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary-gold: #d4af37;
+      --secondary-gold: #f4e4bc;
+      --dark-gold: #b8941f;
+      --platinum: #e5e4e2;
+      --deep-navy: #0a0e27;
+      --rich-purple: #2d1b69;
+      --glass-white: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -15,15 +26,132 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       position: relative;
       overflow-x: hidden;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--deep-navy) 0%, var(--rich-purple) 50%, #1a1a2e 100%);
+      color: var(--platinum);
+      perspective: 1000px;
     }
 
-    /* Floating particles background */
-    .particles {
+    /* Luxurious 3D Background Animation */
+    .luxury-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -3;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(229, 228, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(45, 27, 105, 0.2) 0%, transparent 50%);
+      animation: luxuryPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes luxuryPulse {
+      0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        opacity: 0.8;
+      }
+      50% { 
+        transform: scale(1.1) rotate(2deg);
+        opacity: 1;
+      }
+    }
+
+    /* Floating 3D Geometric Elements */
+    .floating-geometry {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .geo-element {
+      position: absolute;
+      opacity: 0.6;
+      animation: float3D 20s ease-in-out infinite;
+      filter: blur(0.5px);
+    }
+
+    .geo-element:nth-child(1) {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+      box-shadow: 
+        0 20px 40px rgba(212, 175, 55, 0.3),
+        inset 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+
+    .geo-element:nth-child(2) {
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, var(--platinum), rgba(229, 228, 226, 0.7));
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      top: 60%;
+      right: 15%;
+      animation-delay: 7s;
+      box-shadow: 
+        0 15px 35px rgba(229, 228, 226, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .geo-element:nth-child(3) {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(45deg, var(--rich-purple), var(--deep-navy));
+      border-radius: 50%;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 14s;
+      box-shadow: 
+        0 25px 50px rgba(45, 27, 105, 0.4),
+        inset 0 0 25px rgba(255, 255, 255, 0.1);
+    }
+
+    .geo-element:nth-child(4) {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(60deg, var(--dark-gold), var(--primary-gold));
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      top: 40%;
+      right: 40%;
+      animation-delay: 3s;
+      box-shadow: 
+        0 30px 60px rgba(184, 148, 31, 0.3),
+        inset 0 0 40px rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes float3D {
+      0%, 100% { 
+        transform: translateY(0px) translateX(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+        opacity: 0.6;
+      }
+      25% { 
+        transform: translateY(-50px) translateX(30px) rotateX(15deg) rotateY(15deg) rotateZ(5deg) scale(1.1);
+        opacity: 0.8;
+      }
+      50% { 
+        transform: translateY(-80px) translateX(-20px) rotateX(30deg) rotateY(30deg) rotateZ(10deg) scale(0.9);
+        opacity: 1;
+      }
+      75% { 
+        transform: translateY(-30px) translateX(40px) rotateX(45deg) rotateY(45deg) rotateZ(15deg) scale(1.05);
+        opacity: 0.7;
+      }
+    }
+
+    /* Premium Particle System */
+    .luxury-particles {
       position: fixed;
       top: 0;
       left: 0;
@@ -33,276 +161,508 @@
       z-index: -1;
     }
 
-    .particle {
+    .luxury-particle {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.3);
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, var(--primary-gold), transparent);
       border-radius: 50%;
-      animation: float 6s ease-in-out infinite;
+      animation: luxuryFloat 15s ease-in-out infinite;
+      box-shadow: 
+        0 0 20px var(--primary-gold),
+        0 0 40px rgba(212, 175, 55, 0.5);
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+    .luxury-particle:nth-child(even) {
+      background: radial-gradient(circle, var(--platinum), transparent);
+      box-shadow: 
+        0 0 15px var(--platinum),
+        0 0 30px rgba(229, 228, 226, 0.4);
     }
 
+    @keyframes luxuryFloat {
+      0%, 100% { 
+        transform: translateY(0px) translateX(0px) scale(1) rotate(0deg);
+        opacity: 0.4;
+      }
+      25% { 
+        transform: translateY(-40px) translateX(20px) scale(1.3) rotate(90deg);
+        opacity: 0.8;
+      }
+      50% { 
+        transform: translateY(-80px) translateX(-30px) scale(0.8) rotate(180deg);
+        opacity: 1;
+      }
+      75% { 
+        transform: translateY(-40px) translateX(35px) scale(1.2) rotate(270deg);
+        opacity: 0.6;
+      }
+    }
+
+    /* Luxurious 3D Title */
     h1 {
-      text-align: center;
-      font-size: 3.5rem;
-      margin-bottom: 40px;
-      background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
-      background-size: 200% 200%;
+      font-size: 4.5rem;
+      margin-bottom: 50px;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold), var(--platinum), var(--primary-gold));
+      background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: shimmer 3s ease-in-out infinite, slideDown 1s ease-out;
-      font-weight: 700;
-      letter-spacing: -1px;
+      animation: luxuryShimmer 4s ease-in-out infinite, title3D 1.5s ease-out;
+      text-align: center;
+      font-weight: 900;
+      letter-spacing: -3px;
+      text-shadow: 
+        0 2px 0 rgba(212, 175, 55, 0.5),
+        0 4px 0 rgba(212, 175, 55, 0.4),
+        0 6px 0 rgba(212, 175, 55, 0.3),
+        0 8px 0 rgba(212, 175, 55, 0.2),
+        0 12px 30px rgba(0, 0, 0, 0.5);
+      transform: perspective(800px) rotateX(20deg) rotateY(-5deg);
+      position: relative;
     }
 
-    @keyframes shimmer {
+    h1::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: titleGlow 3s ease-in-out infinite;
+      border-radius: 10px;
+      z-index: -1;
+    }
+
+    @keyframes luxuryShimmer {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
-      width: 100%;
-      animation: gridAppear 1s ease-out 0.5s both;
-    }
-
-    @keyframes gridAppear {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .contact-card {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 25px;
-      padding: 30px;
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      animation: cardSlideIn 0.8s ease-out calc(var(--delay) * 0.1s) both;
-    }
-
-    @keyframes cardSlideIn {
+    @keyframes title3D {
       from { 
         opacity: 0; 
-        transform: translateY(50px) rotateX(20deg); 
+        transform: perspective(800px) rotateX(60deg) rotateY(-20deg) translateY(-100px) scale(0.8);
       }
       to { 
         opacity: 1; 
-        transform: translateY(0) rotateX(0deg); 
+        transform: perspective(800px) rotateX(20deg) rotateY(-5deg) translateY(0) scale(1);
       }
     }
 
-    .contact-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+    @keyframes titleGlow {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Premium Glass Morphism Cards */
+    .luxury-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.6s ease;
+      animation: gridReveal 1.5s ease-out 0.8s both;
+      perspective: 1000px;
     }
 
-    .contact-card:hover::before {
-      left: 100%;
+    @keyframes gridReveal {
+      from { 
+        opacity: 0; 
+        transform: scale(0.9) rotateX(30deg);
+      }
+      to { 
+        opacity: 1; 
+        transform: scale(1) rotateX(0deg);
+      }
     }
 
-    .contact-card:hover {
-      transform: translateY(-15px) scale(1.05);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .contact-card h2 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .contact-card p {
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 25px;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    .contact-card a {
-      display: inline-block;
-      background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-      color: #fff;
-      padding: 12px 25px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    .luxury-card {
+      background: linear-gradient(145deg, var(--glass-white), rgba(255, 255, 255, 0.05));
+      backdrop-filter: blur(25px);
+      border: 2px solid var(--glass-border);
+      border-radius: 30px;
+      padding: 40px;
+      text-align: center;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
+      animation: cardFloat 1s ease-out calc(var(--delay) * 0.15s) both;
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transform: perspective(800px) rotateX(10deg);
     }
 
-    .contact-card a::before {
+    @keyframes cardFloat {
+      from { 
+        opacity: 0; 
+        transform: perspective(800px) rotateX(45deg) translateY(80px) scale(0.9);
+      }
+      to { 
+        opacity: 1; 
+        transform: perspective(800px) rotateX(10deg) translateY(0) scale(1);
+      }
+    }
+
+    .luxury-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.6s ease;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+      transition: left 0.8s ease;
     }
 
-    .contact-card a:hover::before {
+    .luxury-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .luxury-card:hover::before {
       left: 100%;
     }
 
-    .contact-card a:hover {
-      background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      border-color: rgba(255, 255, 255, 0.4);
+    .luxury-card:hover::after {
+      opacity: 1;
+    }
+
+    .luxury-card:hover {
+      transform: perspective(800px) rotateX(0deg) translateY(-20px) scale(1.05);
+      box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(212, 175, 55, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 60px rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .luxury-card h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--primary-gold);
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+      position: relative;
+    }
+
+    .luxury-card h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+
+    .luxury-card:hover h2::after {
+      opacity: 1;
+      width: 80px;
+    }
+
+    .luxury-card p {
+      color: var(--platinum);
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      opacity: 0.9;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .luxury-card a {
+      display: inline-block;
+      background: linear-gradient(145deg, var(--primary-gold), var(--dark-gold));
+      color: var(--deep-navy);
+      padding: 15px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 10px 25px rgba(212, 175, 55, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .luxury-card a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .luxury-card a:hover::before {
+      left: 100%;
+    }
+
+    .luxury-card a:hover {
+      background: linear-gradient(145deg, var(--secondary-gold), var(--primary-gold));
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 
+        0 20px 40px rgba(212, 175, 55, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      color: var(--rich-purple);
     }
 
     .icon {
-      font-size: 3rem;
-      margin-bottom: 20px;
+      font-size: 3.5rem;
+      margin-bottom: 25px;
       display: block;
-      animation: iconBounce 2s ease-in-out infinite;
+      animation: iconFloat 3s ease-in-out infinite;
+      filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
     }
 
-    @keyframes iconBounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
+    @keyframes iconFloat {
+      0%, 100% { 
+        transform: translateY(0px) rotateY(0deg) scale(1);
+      }
+      50% { 
+        transform: translateY(-15px) rotateY(10deg) scale(1.1);
+      }
     }
 
+    /* Luxury Footer */
     footer {
-      margin-top: 60px;
+      margin-top: 80px;
       text-align: center;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1rem;
-      animation: fadeIn 1s ease-out 1.5s both;
+      color: var(--platinum);
+      font-size: 1.1rem;
+      animation: footerReveal 1.5s ease-out 2s both;
+      opacity: 0.8;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      position: relative;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
     }
 
-    /* Responsive design */
+    @keyframes footerReveal {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px);
+      }
+      to { 
+        opacity: 0.8; 
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
-      h1 { font-size: 2.5rem; }
-      .contact-grid { 
+      h1 { 
+        font-size: 3rem; 
+        letter-spacing: -2px;
+        transform: perspective(600px) rotateX(15deg) rotateY(-3deg);
+      }
+      .luxury-grid { 
         grid-template-columns: 1fr; 
-        gap: 20px; 
+        gap: 30px; 
       }
-      .contact-card { 
-        padding: 25px; 
+      .luxury-card { 
+        padding: 30px; 
+        transform: perspective(600px) rotateX(8deg);
       }
+      .luxury-card:hover {
+        transform: perspective(600px) rotateX(0deg) translateY(-15px) scale(1.03);
+      }
+      .geo-element {
+        opacity: 0.3;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 40px 15px; }
+      h1 { font-size: 2.5rem; }
+      .luxury-card { padding: 25px; }
+      .luxury-card h2 { font-size: 1.7rem; }
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
+  <div class="luxury-bg"></div>
+  
+  <div class="floating-geometry">
+    <div class="geo-element"></div>
+    <div class="geo-element"></div>
+    <div class="geo-element"></div>
+    <div class="geo-element"></div>
+  </div>
+  
+  <div class="luxury-particles" id="luxuryParticles"></div>
 
-  <h1>🌟 Ramrao Deshmukh</h1>
+  <h1>✨ Ramrao Deshmukh</h1>
 
-  <div class="contact-grid">
-    <div class="contact-card" style="--delay: 1">
+  <div class="luxury-grid">
+    <div class="luxury-card" style="--delay: 1">
       <span class="icon">🎮</span>
-      <h2>Gaming Zone</h2>
-      <p>Explore my gaming profiles, achievements, and favorite games across multiple platforms.</p>
-      <a href="gaming.html">Enter Gaming Zone</a>
+      <h2>Gaming Elite</h2>
+      <p>Immerse yourself in my premium gaming universe. Discover elite profiles, legendary achievements, and masterful gameplay across cutting-edge platforms.</p>
+      <a href="gaming.html">Enter Gaming Realm</a>
     </div>
 
-    <div class="contact-card" style="--delay: 2">
+    <div class="luxury-card" style="--delay: 2">
       <span class="icon">🐾</span>
-      <h2>My Cats</h2>
-      <p>Meet my adorable feline companions and see their cute photos and personalities.</p>
-      <a href="cat.html">Meet My Cats</a>
+      <h2>Feline Royalty</h2>
+      <p>Meet my distinguished feline companions in their luxurious domain. Experience their regal personalities through stunning photography and captivating stories.</p>
+      <a href="cat.html">Meet Royal Cats</a>
     </div>
 
-    <div class="contact-card" style="--delay: 3">
-      <span class="icon">♟️</span>
-      <h2>Chess Bot</h2>
-      <p>Challenge my AI chess bot and test your strategic skills in this classic game.</p>
-      <a href="chess.html">Play Chess</a>
-    </div>
-
-    <div class="contact-card" style="--delay: 4">
+    <div class="luxury-card" style="--delay: 3">
       <span class="icon">💻</span>
-      <h2>Hacker Zone</h2>
-      <p>Enter the matrix and explore cybersecurity challenges and coding adventures.</p>
-      <a href="hacker.html">Enter Hacker Zone</a>
+      <h2>Cyber Nexus</h2>
+      <p>Enter the sophisticated realm of cybersecurity excellence. Navigate through advanced challenges and witness cutting-edge digital innovations.</p>
+      <a href="hacker.html">Access Nexus</a>
     </div>
 
-    <div class="contact-card" style="--delay: 5">
+    <div class="luxury-card" style="--delay: 4">
       <span class="icon">🚀</span>
-      <h2>Skills</h2>
-      <p>Discover my technical abilities, programming languages, and creative expertise.</p>
-      <a href="skills.html">View Skills</a>
+      <h2>Mastery Portfolio</h2>
+      <p>Explore my comprehensive expertise across multiple domains. Witness technical brilliance, creative innovation, and professional excellence.</p>
+      <a href="skills.html">View Mastery</a>
     </div>
 
-    <div class="contact-card" style="--delay: 6">
+    <div class="luxury-card" style="--delay: 5">
       <span class="icon">💬</span>
-      <h2>Reviews</h2>
-      <p>Share your thoughts, feedback, or just drop a message. All opinions welcome!</p>
-      <a href="reviews.html">Leave Review</a>
+      <h2>Elite Feedback</h2>
+      <p>Share your distinguished thoughts and premium insights. Your valuable perspective contributes to continuous excellence and innovation.</p>
+      <a href="reviews.html">Leave Feedback</a>
     </div>
   </div>
 
-  <footer>© 2025 Ramrao Deshmukh - Contact Hub</footer>
+  <footer>© 2025 Ramrao Deshmukh — Luxury Digital Experience</footer>
 
   <script>
-    // Create floating particles
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 50;
+    // Create luxury particle system
+    function createLuxuryParticles() {
+      const particlesContainer = document.getElementById('luxuryParticles');
+      const particleCount = 60;
 
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        particle.className = 'particle';
+        particle.className = 'luxury-particle';
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 8 + 12) + 's';
+        
+        // Add variety to particles
+        if (Math.random() > 0.7) {
+          particle.style.width = '8px';
+          particle.style.height = '8px';
+        }
+        
         particlesContainer.appendChild(particle);
       }
     }
 
-    // Initialize particles
+    // Enhanced 3D hover effects
+    function enhance3DEffects() {
+      const cards = document.querySelectorAll('.luxury-card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 10;
+          const rotateY = (centerX - x) / 10;
+          
+          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-20px) scale(1.05)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(800px) rotateX(10deg) rotateY(0deg) translateY(0) scale(1)';
+        });
+      });
+    }
+
+    // Parallax effect for geometric elements
+    function addParallaxEffect() {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const geoElements = document.querySelectorAll('.geo-element');
+        
+        geoElements.forEach((element, index) => {
+          const speed = (index + 1) * 0.1;
+          const yPos = -(scrolled * speed);
+          element.style.transform = `translateY(${yPos}px) rotateX(${scrolled * 0.05}deg) rotateY(${scrolled * 0.03}deg)`;
+        });
+      });
+    }
+
+    // Initialize all effects
     document.addEventListener('DOMContentLoaded', () => {
-      createParticles();
+      createLuxuryParticles();
+      enhance3DEffects();
+      addParallaxEffect();
+      
+      // Add smooth scroll behavior
+      document.documentElement.style.scrollBehavior = 'smooth';
     });
 
-    // Add interactive hover effects
-    document.querySelectorAll('.contact-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-15px) scale(1.05)';
-      });
+    // Dynamic lighting effect
+    function addDynamicLighting() {
+      const cards = document.querySelectorAll('.luxury-card');
       
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.boxShadow = `
+            0 40px 80px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(212, 175, 55, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            0 0 60px rgba(212, 175, 55, 0.2),
+            0 0 100px rgba(212, 175, 55, 0.1)
+          `;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.boxShadow = `
+            0 25px 50px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2)
+          `;
+        });
       });
-    });
+    }
+
+    // Initialize dynamic lighting
+    setTimeout(addDynamicLighting, 1000);
   </script>
 </body>
 </html>
